@@ -60,7 +60,7 @@ class Util {
             return null;
         }
         String normalizedHost = host;
-        String[] parts = host.split(".");
+        String[] parts = host.split("\\.");
         //if mobile host like en.m.wikipedia.opr get rid of m
         if (parts.length == 4) {
             normalizedHost = String.format("%s.%s.%s", parts[0], parts[2], parts[3]);
