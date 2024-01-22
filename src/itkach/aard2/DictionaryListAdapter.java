@@ -32,7 +32,7 @@ public class DictionaryListAdapter extends BaseAdapter {
     private View.OnClickListener        openUrlOnClick;
     private AlertDialog                 deleteConfirmationDialog;
 
-    private final static String hrefTemplate = "<a href=\'%1$s\'>%2$s</a>";
+    private final static String hrefTemplate = "<a href='%1$s'>%2$s</a>";
 
     DictionaryListAdapter(SlobDescriptorList data, Activity context) {
         this.data = data;
