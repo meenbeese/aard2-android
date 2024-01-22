@@ -18,7 +18,7 @@ import itkach.slob.Slob;
 
 public class SlobDescriptor extends BaseDescriptor {
 
-    private final static transient String TAG = SlobDescriptor.class.getSimpleName();
+    private final static String TAG = SlobDescriptor.class.getSimpleName();
 
     public String path;
     public Map<String, String> tags = new HashMap<String, String>();
