@@ -38,24 +38,15 @@ public class SettingsFragment extends ListFragment {
         if (position == SettingsListAdapter.POS_CLEAR_CACHE) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(R.string.confirm_clear_cached_content)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            WebView webView = new WebView(getActivity());
-                            webView.clearCache(true);
-                        }
+                    .setPositiveButton(android.R.string.yes, (dialog, id1) -> {
+                        WebView webView = new WebView(getActivity());
+                        webView.clearCache(true);
                     })
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
+                    .setNegativeButton(android.R.string.no, (dialog, id12) -> {
+                        // User cancelled the dialog
                     });
             clearCacheConfirmationDialog = builder.create();
-            clearCacheConfirmationDialog.setOnDismissListener(new DialogInterface.OnDismissListener(){
-                @Override
-                public void onDismiss(DialogInterface dialogInterface) {
-                    clearCacheConfirmationDialog = null;
-                }
-            });
+            clearCacheConfirmationDialog.setOnDismissListener(dialogInterface -> clearCacheConfirmationDialog = null);
             clearCacheConfirmationDialog.show();
             return;
         }

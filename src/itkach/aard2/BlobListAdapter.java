@@ -45,12 +45,9 @@ public class BlobListAdapter extends BaseAdapter {
     }
 
     void setData(Iterator<Slob.Blob> lookupResultsIter) {
-        mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                list.clear();
-                notifyDataSetChanged();
-            }
+        mainHandler.post(() -> {
+            list.clear();
+            notifyDataSetChanged();
         });
         this.iter = lookupResultsIter;
         loadChunkSync();
@@ -68,12 +65,9 @@ public class BlobListAdapter extends BaseAdapter {
             chunkList.add(b);
         }
 
-        mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                list.addAll(chunkList);
-                notifyDataSetChanged();
-            }
+        mainHandler.post(() -> {
+            list.addAll(chunkList);
+            notifyDataSetChanged();
         });
 
         Log.d(TAG,
@@ -85,12 +79,7 @@ public class BlobListAdapter extends BaseAdapter {
         if (!iter.hasNext()) {
             return;
         }
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                loadChunkSync();
-            }
-        });
+        executor.execute(() -> loadChunkSync());
     }
 
     @Override

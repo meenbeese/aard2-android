@@ -50,19 +50,16 @@ public class DictionaryListAdapter extends BaseAdapter {
         };
         this.data.registerDataSetObserver(observer);
 
-        openUrlOnClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = (String)v.getTag();
-                if (!Util.isBlank(url)) {
-                    try {
-                        Uri uri = Uri.parse(url);
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
-                        v.getContext().startActivity(browserIntent);
-                    }
-                    catch (Exception e) {
-                        Log.d(TAG, "Failed to launch browser with url " + url, e);
-                    }
+        openUrlOnClick = v -> {
+            String url = (String)v.getTag();
+            if (!Util.isBlank(url)) {
+                try {
+                    Uri uri = Uri.parse(url);
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
+                    v.getContext().startActivity(browserIntent);
+                }
+                catch (Exception e) {
+                    Log.d(TAG, "Failed to launch browser with url " + url, e);
                 }
             }
         };
@@ -100,58 +97,46 @@ public class DictionaryListAdapter extends BaseAdapter {
             sourceView.setOnClickListener(openUrlOnClick);
 
             Switch activeSwitch = (Switch)view.findViewById(R.id.dictionary_active);
-            activeSwitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Switch activeSwitch = (Switch)view;
-                    Integer position = (Integer)view.getTag();
-                    SlobDescriptor desc = data.get(position);
-                    desc.active = activeSwitch.isChecked();
-                    data.set(position, desc);
-                }
+            activeSwitch.setOnClickListener(view1 -> {
+                Switch activeSwitch1 = (Switch) view1;
+                Integer position1 = (Integer) view1.getTag();
+                SlobDescriptor desc1 = data.get(position1);
+                desc1.active = activeSwitch1.isChecked();
+                data.set(position1, desc1);
             });
 
             View btnForget = view
                     .findViewById(R.id.dictionary_btn_forget);
-            btnForget.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Integer position = (Integer)view.getTag();
-                    forget(position);
-                }
+            btnForget.setOnClickListener(view12 -> {
+                Integer position12 = (Integer) view12.getTag();
+                forget(position12);
             });
 
-            View.OnClickListener detailToggle = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Integer position = (Integer)view.getTag();
-                    SlobDescriptor desc = data.get(position);
-                    desc.expandDetail = !desc.expandDetail;
-                    data.set(position, desc);
-                }
+            View.OnClickListener detailToggle = view13 -> {
+                Integer position13 = (Integer) view13.getTag();
+                SlobDescriptor desc12 = data.get(position13);
+                desc12.expandDetail = !desc12.expandDetail;
+                data.set(position13, desc12);
             };
 
             View viewDetailToggle = view
                     .findViewById(R.id.dictionary_detail_toggle);
             viewDetailToggle.setOnClickListener(detailToggle);
 
-            View.OnClickListener toggleFavListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Integer position = (Integer) view.getTag();
-                    SlobDescriptor desc = data.get(position);
-                    long currentTime = System.currentTimeMillis();
-                    if (desc.priority == 0) {
-                        desc.priority = currentTime;
-                    } else {
-                        desc.priority = 0;
-                    }
-                    desc.lastAccess = currentTime;
-                    data.beginUpdate();
-                    data.set(position, desc);
-                    data.sort();
-                    data.endUpdate(true);
+            View.OnClickListener toggleFavListener = view14 -> {
+                Integer position14 = (Integer) view14.getTag();
+                SlobDescriptor desc13 = data.get(position14);
+                long currentTime = System.currentTimeMillis();
+                if (desc13.priority == 0) {
+                    desc13.priority = currentTime;
+                } else {
+                    desc13.priority = 0;
                 }
+                desc13.lastAccess = currentTime;
+                data.beginUpdate();
+                data.set(position14, desc13);
+                data.sort();
+                data.endUpdate(true);
             };
             View btnToggleFav = view
                     .findViewById(R.id.dictionary_btn_toggle_fav);
@@ -314,20 +299,10 @@ public class DictionaryListAdapter extends BaseAdapter {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("")
                 .setMessage(message)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        data.remove(position);
-                    }
-                })
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> data.remove(position))
                 .setNegativeButton(android.R.string.no, null)
                 .create();
-        deleteConfirmationDialog.setOnDismissListener(new DialogInterface.OnDismissListener(){
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                deleteConfirmationDialog = null;
-            }
-        });
+        deleteConfirmationDialog.setOnDismissListener(dialogInterface -> deleteConfirmationDialog = null);
         deleteConfirmationDialog.show();
     }
 

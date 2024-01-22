@@ -61,12 +61,7 @@ public class DictionariesFragment extends BaseListFragment {
         btn.setCompoundDrawablesWithIntrinsicBounds(
                 IconMaker.list(getActivity(), IconMaker.IC_ADD),
                 null, null, null);
-        btn.setOnClickListener(new OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                selectDictionaryFiles();
-            }
-        });
+        btn.setOnClickListener(v -> selectDictionaryFiles());
         LinearLayout emptyViewLayout = (LinearLayout)emptyView;
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,

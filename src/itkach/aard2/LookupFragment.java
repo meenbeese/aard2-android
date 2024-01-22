@@ -53,27 +53,17 @@ public class LookupFragment extends BaseListFragment implements LookupListener {
         super.onViewCreated(view, savedInstanceState);
         setBusy(false);
         ListView listView = getListView();
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Log.i("--", "Item clicked: " + position);
-                Intent intent = new Intent(getActivity(),
-                        ArticleCollectionActivity.class);
-                intent.putExtra("position", position);
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            Log.i("--", "Item clicked: " + position);
+            Intent intent = new Intent(getActivity(),
+                    ArticleCollectionActivity.class);
+            intent.putExtra("position", position);
+            startActivity(intent);
         });
         final Application app = (Application) getActivity().getApplication();
         getListView().setAdapter(app.lastResult);
 
-        closeListener = new SearchView.OnCloseListener() {
-
-            @Override
-            public boolean onClose() {
-                return true;
-            }
-        };
+        closeListener = () -> true;
 
         queryTextListener = new SearchView.OnQueryTextListener() {
 
@@ -96,12 +86,7 @@ public class LookupFragment extends BaseListFragment implements LookupListener {
                         if (app.getLookupQuery().equals(query)) {
                             return;
                         }
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                app.lookup(query);
-                            }
-                        });
+                        getActivity().runOnUiThread(() -> app.lookup(query));
                         scheduledLookup = null;
                     }
                 };

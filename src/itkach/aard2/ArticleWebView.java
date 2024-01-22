@@ -125,12 +125,7 @@ public class ArticleWebView extends SearchableWebView {
 
         timer = new Timer();
 
-        final Runnable applyStyleRunnable = new Runnable() {
-            @Override
-            public void run() {
-                applyStylePref();
-            }
-        };
+        final Runnable applyStyleRunnable = () -> applyStylePref();
 
         applyStylePref = new TimerTask() {
             @Override
@@ -261,31 +256,27 @@ public class ArticleWebView extends SearchableWebView {
             }
         });
 
-        this.setOnLongClickListener(new OnLongClickListener(){
-
-            @Override
-            public boolean onLongClick(View view) {
-                WebView.HitTestResult hitTestResult = getHitTestResult();
-                int resultType= hitTestResult.getType();
-                Log.d(TAG, String.format(
-                        "Long tap on element %s (%s)",
-                        resultType,
-                        hitTestResult.getExtra()));
-                if (resultType == WebView.HitTestResult.SRC_ANCHOR_TYPE ||
-                        resultType == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
-                    String url = hitTestResult.getExtra();
-                    Uri uri = Uri.parse(url);
-                    if (isExternal(uri)) {
-                        Intent share = new Intent(Intent.ACTION_SEND);
-                        share.setType("text/plain");
-                        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                        share.putExtra(Intent.EXTRA_TEXT, url);
-                        getContext().startActivity(Intent.createChooser(share, "Share Link"));
-                        return true;
-                    }
+        this.setOnLongClickListener(view -> {
+            HitTestResult hitTestResult = getHitTestResult();
+            int resultType= hitTestResult.getType();
+            Log.d(TAG, String.format(
+                    "Long tap on element %s (%s)",
+                    resultType,
+                    hitTestResult.getExtra()));
+            if (resultType == HitTestResult.SRC_ANCHOR_TYPE ||
+                    resultType == HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
+                String url = hitTestResult.getExtra();
+                Uri uri = Uri.parse(url);
+                if (isExternal(uri)) {
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("text/plain");
+                    share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                    share.putExtra(Intent.EXTRA_TEXT, url);
+                    getContext().startActivity(Intent.createChooser(share, "Share Link"));
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
 
         applyTextZoomPref();

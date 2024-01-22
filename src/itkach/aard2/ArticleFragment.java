@@ -118,12 +118,10 @@ public class ArticleFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             final String[] styleTitles = view.getAvailableStyles();
             builder.setTitle(R.string.select_style)
-                    .setItems(styleTitles, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            String title = styleTitles[which];
-                            view.saveStylePref(title);
-                            view.applyStylePref();
-                        }
+                    .setItems(styleTitles, (dialog, which) -> {
+                        String title = styleTitles[which];
+                        view.saveStylePref(title);
+                        view.applyStylePref();
                     });
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -158,13 +156,10 @@ public class ArticleFragment extends Fragment {
             public void onProgressChanged(WebView view, final int newProgress) {
                 final Activity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setProgress(newProgress);
-                            if (newProgress >= progressBar.getMax()) {
-                                progressBar.setVisibility(ViewGroup.GONE);
-                            }
+                    activity.runOnUiThread(() -> {
+                        progressBar.setProgress(newProgress);
+                        if (newProgress >= progressBar.getMax()) {
+                            progressBar.setVisibility(ViewGroup.GONE);
                         }
                     });
                 }

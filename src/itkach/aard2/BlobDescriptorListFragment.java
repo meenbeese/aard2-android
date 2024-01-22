@@ -78,21 +78,13 @@ abstract class BlobDescriptorListFragment extends BaseListFragment {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("")
                         .setMessage(message)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteSelectedItems();
-                                mode.finish();
-                                deleteConfirmationDialog = null;
-                            }
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                            deleteSelectedItems();
+                            mode.finish();
+                            deleteConfirmationDialog = null;
                         })
                         .setNegativeButton(android.R.string.no, null).create();
-                deleteConfirmationDialog.setOnDismissListener(new DialogInterface.OnDismissListener(){
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        deleteConfirmationDialog = null;
-                    }
-                });
+                deleteConfirmationDialog.setOnDismissListener(dialogInterface -> deleteConfirmationDialog = null);
                 deleteConfirmationDialog.show();
                 return true;
             case R.id.blob_descriptor_select_all:
@@ -133,16 +125,12 @@ abstract class BlobDescriptorListFragment extends BaseListFragment {
         icArrowDown = IconMaker.actionBar(activity, IconMaker.IC_SORT_DESC);
 
         final ListView listView = getListView();
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Intent intent = new Intent(activity,
-                        ArticleCollectionActivity.class);
-                intent.setAction(getItemClickAction());
-                intent.putExtra("position", position);
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            Intent intent = new Intent(activity,
+                    ArticleCollectionActivity.class);
+            intent.setAction(getItemClickAction());
+            intent.putExtra("position", position);
+            startActivity(intent);
         });
 
         setListAdapter(listAdapter);

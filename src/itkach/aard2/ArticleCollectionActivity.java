@@ -63,14 +63,7 @@ public class ArticleCollectionActivity extends FragmentActivity
         }
     }
 
-    ToBlob blobToBlob = new ToBlob(){
-
-        @Override
-        public Blob convert(Object item) {
-            return (Blob)item;
-        }
-
-    };
+    ToBlob blobToBlob = item -> (Blob)item;
 
 
     private boolean onDestroyCalled = false;
@@ -171,12 +164,9 @@ public class ArticleCollectionActivity extends FragmentActivity
                     @Override
                     public void onPageSelected(final int position) {
                         updateTitle(position);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ArticleFragment fragment =(ArticleFragment) articleCollectionPagerAdapter.getItem(position);
-                                fragment.applyTextZoomPref();
-                            }
+                        runOnUiThread(() -> {
+                            ArticleFragment fragment =(ArticleFragment) articleCollectionPagerAdapter.getItem(position);
+                            fragment.applyTextZoomPref();
                         });
 
                     }});
@@ -224,22 +214,12 @@ public class ArticleCollectionActivity extends FragmentActivity
 
     private ArticleCollectionPagerAdapter createFromBookmarks(final Application app) {
         return new ArticleCollectionPagerAdapter(
-                app, new BlobDescriptorListAdapter(app.bookmarks), new ToBlob() {
-            @Override
-            public Blob convert(Object item) {
-                return app.bookmarks.resolve((BlobDescriptor)item);
-            }
-        }, getSupportFragmentManager());
+                app, new BlobDescriptorListAdapter(app.bookmarks), item -> app.bookmarks.resolve((BlobDescriptor)item), getSupportFragmentManager());
     }
 
     private ArticleCollectionPagerAdapter createFromHistory(final Application app) {
         return new ArticleCollectionPagerAdapter(
-                app, new BlobDescriptorListAdapter(app.history), new ToBlob() {
-            @Override
-            public Blob convert(Object item) {
-                return app.history.resolve((BlobDescriptor)item);
-            }
-        }, getSupportFragmentManager());
+                app, new BlobDescriptorListAdapter(app.history), item -> app.history.resolve((BlobDescriptor)item), getSupportFragmentManager());
     }
 
     private ArticleCollectionPagerAdapter createFromIntent(Application app, Intent intent) {
