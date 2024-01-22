@@ -87,7 +87,7 @@ public class ArticleWebView extends SearchableWebView {
         if (titles.length == 0) {
             return;
         }
-        SortedSet newStyleTitlesSet = new TreeSet<String>(Arrays.asList(titles));
+        SortedSet newStyleTitlesSet = new TreeSet<>(Arrays.asList(titles));
         if (!this.styleTitles.equals(newStyleTitlesSet)) {
             this.styleTitles = newStyleTitlesSet;
             saveAvailableStylesPref(this.styleTitles);
@@ -146,7 +146,7 @@ public class ArticleWebView extends SearchableWebView {
 
             byte[] noBytes = new byte[0];
 
-            Map<String, List<Long>> times = new HashMap<String, List<Long>>();
+            Map<String, List<Long>> times = new HashMap<>();
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -160,7 +160,7 @@ public class ArticleWebView extends SearchableWebView {
                     return;
                 }
                 else {
-                    List<Long> tsList = new ArrayList<Long>();
+                    List<Long> tsList = new ArrayList<>();
                     tsList.add(System.currentTimeMillis());
                     times.put(url, tsList);
                     view.loadUrl("javascript:" + styleSwitcherJs);

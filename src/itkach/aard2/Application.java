@@ -95,15 +95,15 @@ public class Application extends android.app.Application {
                 e.printStackTrace();
             }
         }
-        articleActivities = Collections.synchronizedList(new ArrayList<Activity>());
+        articleActivities = Collections.synchronizedList(new ArrayList<>());
 
         mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
                 false);
-        dictStore = new DescriptorStore<SlobDescriptor>(mapper, getDir("dictionaries", MODE_PRIVATE));
-        bookmarkStore = new DescriptorStore<BlobDescriptor>(mapper, getDir(
+        dictStore = new DescriptorStore<>(mapper, getDir("dictionaries", MODE_PRIVATE));
+        bookmarkStore = new DescriptorStore<>(mapper, getDir(
                 "bookmarks", MODE_PRIVATE));
-        historyStore = new DescriptorStore<BlobDescriptor>(mapper, getDir(
+        historyStore = new DescriptorStore<>(mapper, getDir(
                 "history", MODE_PRIVATE));
         slobber = new Slobber();
 
@@ -140,7 +140,7 @@ public class Application extends android.app.Application {
             synchronized public void onChanged() {
                 lastResult.setData(new ArrayList<Slob.Blob>().iterator());
                 slobber.setSlobs(null);
-                List<Slob> slobs = new ArrayList<Slob>();
+                List<Slob> slobs = new ArrayList<>();
                 for (SlobDescriptor sd : dictionaries) {
                     Slob s = sd.load(getApplicationContext());
                     if (s != null) {
@@ -466,7 +466,7 @@ public class Application extends android.app.Application {
         }
     }
 
-    private List<LookupListener> lookupListeners = new ArrayList<LookupListener>();
+    private List<LookupListener> lookupListeners = new ArrayList<>();
 
     void addLookupListener(LookupListener listener){
         lookupListeners.add(listener);
@@ -485,7 +485,7 @@ public class Application extends android.app.Application {
 
         @Override
         protected Void doInBackground(Slob[] slobs) {
-            Set<String> hosts = new HashSet<String>();
+            Set<String> hosts = new HashSet<>();
             for (Slob slob : slobs) {
                 try {
                     String uriValue = slob.getTags().get("uri");

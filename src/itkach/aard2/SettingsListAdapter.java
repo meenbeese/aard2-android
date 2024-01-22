@@ -253,7 +253,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
         }
         else {
             this.userStyleData = userStylePrefs.getAll();
-            this.userStyleNames = new ArrayList<String>(this.userStyleData.keySet());
+            this.userStyleNames = new ArrayList<>(this.userStyleData.keySet());
             Util.sort(this.userStyleNames);
 
             view = inflater.inflate(R.layout.settings_user_styles_item, parent,
@@ -326,7 +326,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         this.userStyleData = sharedPreferences.getAll();
-        this.userStyleNames = new ArrayList<String>(this.userStyleData.keySet());
+        this.userStyleNames = new ArrayList<>(this.userStyleData.keySet());
         Util.sort(userStyleNames);
         notifyDataSetChanged();
     }

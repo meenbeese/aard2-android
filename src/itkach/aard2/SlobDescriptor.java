@@ -21,7 +21,7 @@ public class SlobDescriptor extends BaseDescriptor {
     private final static String TAG = SlobDescriptor.class.getSimpleName();
 
     public String path;
-    public Map<String, String> tags = new HashMap<String, String>();
+    public Map<String, String> tags = new HashMap<>();
     public boolean active = true;
     public long priority;
     public long blobCount;

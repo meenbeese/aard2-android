@@ -40,7 +40,7 @@ public class BlobListAdapter extends BaseAdapter {
     public BlobListAdapter(Context context, int chunkSize, int loadMoreThreashold) {
         this.mainHandler = new Handler(context.getMainLooper());
         this.executor = Executors.newSingleThreadExecutor();
-        this.list = new ArrayList<Slob.Blob>(chunkSize);
+        this.list = new ArrayList<>(chunkSize);
         this.chunkSize = chunkSize;
         this.loadMoreThreashold = loadMoreThreashold;
     }
