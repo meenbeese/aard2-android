@@ -1,9 +1,10 @@
 package itkach.aard2;
 
+import static java.lang.String.format;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
@@ -20,8 +21,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.Locale;
-
-import static java.lang.String.format;
 
 public class DictionaryListAdapter extends BaseAdapter {
 

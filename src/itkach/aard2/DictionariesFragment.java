@@ -1,7 +1,5 @@
 package itkach.aard2;
 
-import static android.view.View.OnClickListener;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
