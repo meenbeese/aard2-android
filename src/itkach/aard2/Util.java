@@ -29,7 +29,7 @@ class Util {
             Collections.sort(list, comparator);
         }
         catch(Exception e) {
-            //From http://www.oracle.com/technetwork/java/javase/compatibility-417013.html#source
+            // From http://www.oracle.com/technetwork/java/javase/compatibility-417013.html#source
             /*
             Synopsis: Updated sort behavior for Arrays and Collections may throw an IllegalArgumentException
             Description: The sorting algorithm used by java.util.Arrays.sort and (indirectly) by
@@ -41,11 +41,11 @@ class Util {
             Nature of Incompatibility: behavioral
             RFE: 6804124
              */
-            //Name comparators use ICU collation key comparison. Given Unicode collation complexity
-            //it's hard to be sure that collation key comparisons won't trigger an exception. It certainly
-            //does at least for some keys in ICU 53.1.
-            //Incorrect or no sorting seems preferable than a crashing app.
-            //TODO perhaps java.util.Collections.sort shouldn't be used at all
+            // Name comparators use ICU collation key comparison. Given Unicode collation complexity
+            // It's hard to be sure that collation key comparisons won't trigger an exception. It certainly
+            // Does at least for some keys in ICU 53.1.
+            // Incorrect or no sorting seems preferable than a crashing app.
+            // TODO: perhaps java.util.Collections.sort shouldn't be used at all
             Log.w(TAG, "Error while sorting:", e);
         }
     }

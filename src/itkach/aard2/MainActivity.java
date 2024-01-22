@@ -161,9 +161,9 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     protected void onPause() {
-        //Looks like shown soft input sometimes causes a system ui visibility
-        //change event that breaks article activity launched from here out of full screen mode.
-        //Hiding it appears to reduce that.
+        // Looks like shown soft input sometimes causes a system ui visibility
+        // Change event that breaks article activity launched from here out of full screen mode.
+        // Hiding it appears to reduce that.
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         try {
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);

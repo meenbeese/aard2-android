@@ -39,13 +39,13 @@ public class SlobDescriptor extends BaseDescriptor {
 
     Slob load(final Context context) {
         Slob slob = null;
-        //File f = new File(path);
+        // File f = new File(path);
 
         try {
-            //slob = new Slob(f);
+            // slob = new Slob(f);
             final Uri uri = Uri.parse(path);
-            //must hold on to ParcelFileDescriptor,
-            //otherwise it gets garbage collected and trashes underlying file descriptor
+            // Must hold on to ParcelFileDescriptor,
+            // Otherwise it gets garbage collected and trashes underlying file descriptor
             fileDescriptor = context.getContentResolver().openFileDescriptor(uri, "r");
             FileInputStream fileInputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
             slob = new Slob(fileInputStream.getChannel(), path);

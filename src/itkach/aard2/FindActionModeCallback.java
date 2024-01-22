@@ -45,8 +45,7 @@ class FindActionModeCallback implements ActionMode.Callback, TextWatcher,
         Spannable span = (Spannable) editText.getText();
         int length = span.length();
         // Ideally, we would like to set the selection to the whole field,
-        // but this brings up the Text selection CAB, which dismisses this
-        // one.
+        // but this brings up the Text selection CAB, which dismisses this one.
         Selection.setSelection(span, length, length);
         // Necessary each time we set the text, so that this will watch
         // changes to it.

@@ -15,19 +15,19 @@ public class SlobDescriptorList extends BaseDescriptorList<SlobDescriptor> {
         comparator = new Comparator<SlobDescriptor>() {
             @Override
             public int compare(SlobDescriptor d1, SlobDescriptor d2) {
-                //Dictionaries that are unfavorited
-                //go immediately after favorites
+                // Dictionaries that are unfavorited
+                // Go immediately after favorites
                 if (d1.priority == 0 && d2.priority == 0) {
                     return Util.compare(d2.lastAccess, d1.lastAccess);
                 }
-                //Favorites are always above other
+                // Favorites are always above other
                 if (d1.priority == 0 && d2.priority > 0) {
                     return 1;
                 }
                 if (d1.priority > 0 && d2.priority == 0) {
                     return -1;
                 }
-                //Old favorites are above more recent ones
+                // Old favorites are above more recent ones
                 return Util.compare(d1.priority, d2.priority);
             }
         };

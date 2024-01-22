@@ -299,7 +299,7 @@ public class ArticleCollectionActivity extends FragmentActivity
             if (result.hasNext()) {
                 Blob b = result.peek();
                 if (b.key.length() - length > 3) {
-                    //we don't like this result
+                    // We don't like this result
                 }
                 else {
                     break;
@@ -623,9 +623,9 @@ public class ArticleCollectionActivity extends FragmentActivity
             return "???";
         }
 
-        //this is needed so that fragment is properly updated
-        //if underlying data changes (such as on unbookmark)
-        //https://code.google.com/p/android/issues/detail?id=19001
+        // This is needed so that fragment is properly updated
+        // If underlying data changes (such as on unbookmark)
+        // https://code.google.com/p/android/issues/detail?id=19001
         @Override
         public int getItemPosition(Object object) {
             return POSITION_NONE;
