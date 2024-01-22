@@ -12,7 +12,15 @@ repositories {
 
 android {
     namespace "itkach.aard2"
-    compileSdkVersion 33
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "itkach.aard2"
+        minSdk 23
+        targetSdk 34
+        versionCode 56
+        versionName "0.56"
+    }
 
     packagingOptions {
         project("slobj").file("exclude.txt").eachLine {
@@ -26,7 +34,6 @@ android {
             excludes += ['META-INF/LICENSE', 'META-INF/NOTICE']
         }
     }
-
 
     sourceSets {
         main {
@@ -59,10 +66,6 @@ android {
         }
     }
 
-    defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 34
-    }
     lint {
         abortOnError false
     }
