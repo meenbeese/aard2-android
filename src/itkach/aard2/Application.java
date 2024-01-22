@@ -254,7 +254,7 @@ public class Application extends android.app.Application {
 
 
     Slob[] getActiveSlobs() {
-        List<Slob> result = new ArrayList(dictionaries.size());
+        List<Slob> result = new ArrayList<>(dictionaries.size());
         for (SlobDescriptor sd : dictionaries) {
             if (sd.active) {
                 Slob s = slobber.getSlob(sd.id);
@@ -267,7 +267,7 @@ public class Application extends android.app.Application {
     }
 
     Slob[] getFavoriteSlobs() {
-        List<Slob> result = new ArrayList(dictionaries.size());
+        List<Slob> result = new ArrayList<>(dictionaries.size());
         for (SlobDescriptor sd : dictionaries) {
             if (sd.active && sd.priority > 0) {
                 Slob s = slobber.getSlob(sd.id);
