@@ -267,7 +267,7 @@ public class Application extends android.app.Application {
             }
         }
         return result.toArray(new Slob[result.size()]);
-    };
+    }
 
     Slob[] getFavoriteSlobs() {
         List<Slob> result = new ArrayList(dictionaries.size());
@@ -280,7 +280,7 @@ public class Application extends android.app.Application {
             }
         }
         return result.toArray(new Slob[result.size()]);
-    };
+    }
 
 
     Iterator<Blob> find(String key) {

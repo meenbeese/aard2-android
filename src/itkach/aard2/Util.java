@@ -22,7 +22,7 @@ class Util {
         catch(Exception e) {
             Log.w(TAG, "Error while sorting:", e);
         }
-    };
+    }
 
     static <T> void sort(List<T> list, Comparator<? super T> comparator) {
         try {

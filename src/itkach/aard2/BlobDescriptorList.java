@@ -27,7 +27,7 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
     private final String TAG = getClass().getSimpleName();
 
     static enum SortOrder {
-        TIME, NAME;
+        TIME, NAME
     }
     private Application                     app;
 

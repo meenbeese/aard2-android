@@ -215,7 +215,7 @@ public class ArticleCollectionActivity extends FragmentActivity
         boolean hasFragment = !Util.isBlank(bd.fragment);
         return new ArticleCollectionPagerAdapter(
                 app, data, hasFragment ? new ToBlobWithFragment(bd.fragment) : blobToBlob, getSupportFragmentManager());
-    };
+    }
 
     private ArticleCollectionPagerAdapter createFromLastResult(Application app) {
         return new ArticleCollectionPagerAdapter(

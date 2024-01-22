@@ -155,7 +155,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             btnDark.setOnClickListener(clickListener);
             btnLight.setChecked(currentValue.equals(Application.PREF_UI_THEME_LIGHT));
             btnDark.setChecked(currentValue.equals(Application.PREF_UI_THEME_DARK));
-        };
+        }
         return view;
     }
 
@@ -277,7 +277,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
                     }
                 }
             });
-        };
+        }
 
         View emptyView = view.findViewById(R.id.setting_user_styles_empty);
         emptyView.setVisibility(userStyleNames.size() == 0 ? View.VISIBLE : View.GONE);
@@ -384,7 +384,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             btnAlways.setChecked(currentValue.equals(ArticleWebView.PREF_REMOTE_CONTENT_ALWAYS));
             btnWiFi.setChecked(currentValue.equals(ArticleWebView.PREF_REMOTE_CONTENT_WIFI));
             btnNever.setChecked(currentValue.equals(ArticleWebView.PREF_REMOTE_CONTENT_NEVER));
-        };
+        }
         return view;
     }
 

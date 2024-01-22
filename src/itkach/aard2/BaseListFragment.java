@@ -43,13 +43,13 @@ public abstract class BaseListFragment extends ListFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    protected void setSelectionMode(boolean selectionMode){};
+    protected void setSelectionMode(boolean selectionMode){}
 
-    protected int getSelectionMenuId(){return 0;};
+    protected int getSelectionMenuId(){return 0;}
 
     protected boolean onSelectionActionItemClicked(final ActionMode mode, MenuItem item){
         return false;
-    };
+    }
 
     protected boolean supportsSelection() {
         return true;
