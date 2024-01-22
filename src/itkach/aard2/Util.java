@@ -12,7 +12,7 @@ class Util {
     static final String TAG = Util.class.getSimpleName();
 
     static int compare(long l1, long l2) {
-        return l1 < l2 ? -1 : (l1 == l2 ? 0 : 1);
+        return Long.compare(l1, l2);
     }
 
     static <T extends Comparable<? super T>> void sort(List<T> list) {
