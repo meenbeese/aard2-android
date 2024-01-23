@@ -16,10 +16,10 @@ import itkach.slob.Slob;
 
 public class BlobDescriptorListAdapter extends BaseAdapter {
 
-    BlobDescriptorList      list;
-    DateFormat              dateFormat;
+    final BlobDescriptorList list;
+    DateFormat dateFormat;
     private DataSetObserver observer;
-    private boolean         selectionMode;
+    private boolean selectionMode;
 
     public BlobDescriptorListAdapter(BlobDescriptorList list) {
         this.list = list;
@@ -41,7 +41,7 @@ public class BlobDescriptorListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         synchronized (list) {
-            return list == null ? 0 : list.size();
+            return list.size();
         }
     }
 

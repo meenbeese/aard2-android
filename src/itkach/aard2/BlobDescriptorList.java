@@ -29,25 +29,25 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
     enum SortOrder {
         TIME, NAME
     }
-    private Application                     app;
+    private final Application app;
 
-    private DescriptorStore<BlobDescriptor> store;
-    private List<BlobDescriptor>            list;
-    private List<BlobDescriptor>            filteredList;
-    private String                          filter;
-    private SortOrder                       order;
-    private boolean                         ascending;
-    private final DataSetObservable         dataSetObservable;
-    private Comparator<BlobDescriptor>      nameComparatorAsc;
-    private Comparator<BlobDescriptor>      nameComparatorDesc;
-    private Comparator<BlobDescriptor>      timeComparatorAsc;
-    private Comparator<BlobDescriptor>      timeComparatorDesc;
-    private Comparator<BlobDescriptor>      comparator;
-    private Comparator<BlobDescriptor>      lastAccessComparator;
-    private Slob.KeyComparator              keyComparator;
-    private int                             maxSize;
-    private RuleBasedCollator               filterCollator;
-    private Handler                         handler;
+    private final DescriptorStore<BlobDescriptor> store;
+    private final List<BlobDescriptor> list;
+    private final List<BlobDescriptor> filteredList;
+    private String filter;
+    private SortOrder order;
+    private boolean ascending;
+    private final DataSetObservable dataSetObservable;
+    private final Comparator<BlobDescriptor> nameComparatorAsc;
+    private final Comparator<BlobDescriptor> nameComparatorDesc;
+    private final Comparator<BlobDescriptor> timeComparatorAsc;
+    private final Comparator<BlobDescriptor> timeComparatorDesc;
+    private Comparator<BlobDescriptor> comparator;
+    private final Comparator<BlobDescriptor> lastAccessComparator;
+    private final Slob.KeyComparator keyComparator;
+    private final int maxSize;
+    private final RuleBasedCollator filterCollator;
+    private final Handler handler;
 
     BlobDescriptorList(Application app, DescriptorStore<BlobDescriptor> store) {
         this(app, store, 100);

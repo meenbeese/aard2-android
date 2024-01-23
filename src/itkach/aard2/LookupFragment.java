@@ -109,6 +109,7 @@ public class LookupFragment extends BaseListFragment implements LookupListener {
         inflater.inflate(R.menu.lookup, menu);
         MenuItem miFilter = menu.findItem(R.id.action_lookup);
         View filterActionView = miFilter.getActionView();
+        assert filterActionView != null;
         searchView = (SearchView) filterActionView.findViewById(R.id.fldLookup);
         searchView.setQueryHint(miFilter.getTitle());
         searchView.setIconified(false);
@@ -148,7 +149,7 @@ public class LookupFragment extends BaseListFragment implements LookupListener {
             TextView emptyText = ((TextView)emptyView.findViewById(R.id.empty_text));
             String msg = "";
             String query = app.getLookupQuery();
-            if (query != null && !query.toString().equals("")) {
+            if (query != null && !query.equals("")) {
                 msg = getString(R.string.lookup_nothing_found);
             }
             emptyText.setText(msg);
