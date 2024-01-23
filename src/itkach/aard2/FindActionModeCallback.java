@@ -1,8 +1,3 @@
-/*
-* This file is heavily inspired by the Android Open Source Project
-* licensed under the Apache License, Version 2.0
-*/
-
 package itkach.aard2;
 
 import android.content.Context;
@@ -52,7 +47,7 @@ class FindActionModeCallback implements ActionMode.Callback, TextWatcher,
         span.setSpan(this, 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
     }
 
-    /*
+    /**
      * Move the highlight to the next match.
      * @param next If true, find the next match further down in the document.
      *             If false, find the previous match, up in the document.

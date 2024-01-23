@@ -67,19 +67,11 @@ public class SlobDescriptor extends BaseDescriptor {
         return label;
     }
 
-//    static SlobDescriptor fromFile(File file) {
-//        SlobDescriptor s = new SlobDescriptor();
-//        s.path = file.getAbsolutePath();
-//        s.load();
-//        return s;
-//    }
-
     static SlobDescriptor fromUri(Context context, String uri) {
         SlobDescriptor s = new SlobDescriptor();
         s.path = uri;
         s.load(context);
         return s;
     }
-
 
 }

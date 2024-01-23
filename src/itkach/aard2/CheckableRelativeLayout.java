@@ -1,9 +1,5 @@
 package itkach.aard2;
 
-/**
- * From http://www.marvinlabs.com/2010/10/29/custom-listview-ability-check-items/
- */
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -65,7 +61,7 @@ public class CheckableRelativeLayout extends RelativeLayout implements
         }
     }
 
-    /**
+    /*
      * Add to our checkable list all the children of the view that implement the
      * interface Checkable
      */
