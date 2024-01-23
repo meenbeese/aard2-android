@@ -17,10 +17,10 @@ import android.widget.EditText;
 class FindActionModeCallback implements ActionMode.Callback, TextWatcher,
         View.OnLongClickListener, View.OnClickListener {
 
-    private View searchView;
-    private EditText editText;
-    private SearchableWebView webview;
-    private InputMethodManager imManager;
+    private final View searchView;
+    private final EditText editText;
+    private final SearchableWebView webview;
+    private final InputMethodManager imManager;
 
     FindActionModeCallback(Context context, SearchableWebView webview) {
         this.webview = webview;

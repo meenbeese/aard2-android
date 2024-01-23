@@ -6,8 +6,8 @@ import itkach.slob.Slob;
 
 public class SlobDescriptorList extends BaseDescriptorList<SlobDescriptor> {
 
-    private final Application            app;
-    private Comparator<SlobDescriptor>   comparator;
+    private final Application app;
+    private final Comparator<SlobDescriptor> comparator;
 
     SlobDescriptorList(Application app, DescriptorStore<SlobDescriptor> store) {
         super(SlobDescriptor.class, store);

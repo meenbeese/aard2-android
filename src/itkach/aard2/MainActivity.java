@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity implements
     private AppSectionsPagerAdapter appSectionsPagerAdapter;
     private ViewPager viewPager;
 
-    private Pattern[] NO_PASTE_PATTERNS = new Pattern[]{
+    private final Pattern[] NO_PASTE_PATTERNS = new Pattern[]{
             Patterns.WEB_URL,
             Patterns.EMAIL_ADDRESS,
             Patterns.PHONE
@@ -258,12 +258,12 @@ public class MainActivity extends FragmentActivity implements
     }
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
-        private Fragment[]         fragments;
-        LookupFragment             tabLookup;
+        private final Fragment[] fragments;
+        LookupFragment tabLookup;
         BlobDescriptorListFragment tabBookmarks;
         BlobDescriptorListFragment tabHistory;
-        DictionariesFragment       tabDictionaries;
-        SettingsFragment           tabSettings;
+        DictionariesFragment tabDictionaries;
+        SettingsFragment tabSettings;
 
         public AppSectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -360,10 +360,7 @@ public class MainActivity extends FragmentActivity implements
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            if (!useVolumeForNav()) {
-                return false;
-            }
-            return true;
+            return useVolumeForNav();
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -136,7 +136,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
                 Log.d("Settings", Application.PREF_UI_THEME + ": " + value);
                 if (value != null) {
                     editor.putString(Application.PREF_UI_THEME, value);
-                    editor.commit();
+                    editor.apply();
                 }
                 context.recreate();
             };
@@ -295,7 +295,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
                     Log.d(TAG, "Deleting user style " + name);
                     SharedPreferences.Editor edit = userStylePrefs.edit();
                     edit.remove(name);
-                    edit.commit();
+                    edit.apply();
                 })
                 .setNegativeButton(android.R.string.no, null)
                 .show();
@@ -344,7 +344,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
                 Log.d("Settings", "Remote content: " + value);
                 if (value != null) {
                     editor.putString(ArticleWebView.PREF_REMOTE_CONTENT, value);
-                    editor.commit();
+                    editor.apply();
                 }
             };
             RadioButton btnAlways = (RadioButton) view

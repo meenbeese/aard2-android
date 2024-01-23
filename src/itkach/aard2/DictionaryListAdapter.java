@@ -26,10 +26,10 @@ public class DictionaryListAdapter extends BaseAdapter {
 
     private final static String TAG = DictionaryListAdapter.class.getName();
 
-    private final SlobDescriptorList    data;
-    private final Activity              context;
-    private View.OnClickListener        openUrlOnClick;
-    private AlertDialog                 deleteConfirmationDialog;
+    private final SlobDescriptorList data;
+    private final Activity context;
+    private final View.OnClickListener openUrlOnClick;
+    private AlertDialog deleteConfirmationDialog;
 
     private final static String hrefTemplate = "<a href='%1$s'>%2$s</a>";
 

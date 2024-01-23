@@ -47,7 +47,6 @@ public class SettingsFragment extends ListFragment {
             clearCacheConfirmationDialog = builder.create();
             clearCacheConfirmationDialog.setOnDismissListener(dialogInterface -> clearCacheConfirmationDialog = null);
             clearCacheConfirmationDialog.show();
-            return;
         }
     }
 

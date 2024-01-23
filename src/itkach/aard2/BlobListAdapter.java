@@ -22,26 +22,26 @@ public class BlobListAdapter extends BaseAdapter {
 
     private static final String TAG = BlobListAdapter.class.getSimpleName();
 
-    Handler             mainHandler;
-    List<Slob.Blob>     list;
+    Handler mainHandler;
+    List<Slob.Blob> list;
     Iterator<Slob.Blob> iter;
-    ExecutorService     executor;
+    ExecutorService executor;
 
-    private final int   chunkSize;
-    private final int   loadMoreThreashold;
-    int                 MAX_SIZE   = 10000;
+    private final int chunkSize;
+    private final int loadMoreThreshold;
+    int MAX_SIZE = 10000;
 
 
     public BlobListAdapter(Context context) {
         this(context, 20, 10);
     }
 
-    public BlobListAdapter(Context context, int chunkSize, int loadMoreThreashold) {
+    public BlobListAdapter(Context context, int chunkSize, int loadMoreThreshold) {
         this.mainHandler = new Handler(context.getMainLooper());
         this.executor = Executors.newSingleThreadExecutor();
         this.list = new ArrayList<>(chunkSize);
         this.chunkSize = chunkSize;
-        this.loadMoreThreashold = loadMoreThreashold;
+        this.loadMoreThreshold = loadMoreThreshold;
     }
 
     void setData(Iterator<Slob.Blob> lookupResultsIter) {
@@ -100,7 +100,7 @@ public class BlobListAdapter extends BaseAdapter {
     }
 
     private void maybeLoadMore(int position) {
-        if (position >= list.size() - loadMoreThreashold) {
+        if (position >= list.size() - loadMoreThreshold) {
             loadChunk();
         }
     }

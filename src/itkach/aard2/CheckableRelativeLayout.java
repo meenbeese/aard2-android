@@ -13,8 +13,8 @@ import java.util.List;
 public class CheckableRelativeLayout extends RelativeLayout implements
         Checkable {
 
-    private boolean         isChecked;
-    private List<Checkable> checkableViews = new ArrayList<>();
+    private boolean isChecked;
+    private final List<Checkable> checkableViews = new ArrayList<>();
 
     public CheckableRelativeLayout(Context context) {
         super(context);
