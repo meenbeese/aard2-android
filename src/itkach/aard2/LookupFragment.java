@@ -122,7 +122,7 @@ public class LookupFragment extends BaseListFragment implements LookupListener {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (app.autoPaste()) {
-            CharSequence clipboard  = Clipboard.take(this.getActivity());
+            CharSequence clipboard  = Clipboard.INSTANCE.take(this.getActivity());
             if (clipboard != null) {
                 app.lookup(clipboard.toString(), false);
             }

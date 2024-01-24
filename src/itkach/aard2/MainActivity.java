@@ -302,7 +302,7 @@ public class MainActivity extends FragmentActivity implements
             Log.d(TAG, "has no focus");
             return;
         }
-        CharSequence text = Clipboard.peek(this);
+        CharSequence text = Clipboard.INSTANCE.peek(this);
         if (text != null) {
             viewPager.setCurrentItem(0);
             invalidateOptionsMenu();
