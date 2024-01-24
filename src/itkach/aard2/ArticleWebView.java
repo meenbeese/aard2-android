@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.Timer;
@@ -50,7 +51,7 @@ public class ArticleWebView extends SearchableWebView {
     static final String PREF_REMOTE_CONTENT_WIFI = "wifi";
     static final String PREF_REMOTE_CONTENT_NEVER = "never";
 
-    Set<String> externalSchemes = new HashSet<String>(){
+    Set<String> externalSchemes = new HashSet<>() {
         {
             add("https");
             add("ftp");
@@ -64,19 +65,19 @@ public class ArticleWebView extends SearchableWebView {
         String scheme = uri.getScheme();
         String host = uri.getHost();
 
-        return scheme != null && (
-                externalSchemes.contains(scheme) ||
-                    (scheme.equals("http") && !host.equals(LOCALHOST)));
+        if (scheme == null) return false;
+        if (externalSchemes.contains(scheme)) return true;
+        if (!scheme.equals("http")) return false;
+        assert host != null;
+        return !host.equals(LOCALHOST);
     }
 
-    private SortedSet<String>   styleTitles  = new TreeSet<String>();
-
-    private String              currentSlobId;
-    private String              currentSlobUri;
-    private ConnectivityManager connectivityManager;
-
-    private Timer               timer;
-    private TimerTask           applyStylePref;
+    private SortedSet<String> styleTitles = new TreeSet<>();
+    private String currentSlobId;
+    private String currentSlobUri;
+    private final ConnectivityManager connectivityManager;
+    private final Timer timer;
+    private final TimerTask applyStylePref;
 
     boolean forceLoadRemoteContent;
 
@@ -124,7 +125,7 @@ public class ArticleWebView extends SearchableWebView {
 
         timer = new Timer();
 
-        final Runnable applyStyleRunnable = () -> applyStylePref();
+        final Runnable applyStyleRunnable = this::applyStylePref;
 
         applyStylePref = new TimerTask() {
             @Override
@@ -138,9 +139,9 @@ public class ArticleWebView extends SearchableWebView {
 
         this.setWebViewClient(new WebViewClient() {
 
-            byte[] noBytes = new byte[0];
+            final byte[] noBytes = new byte[0];
 
-            Map<String, List<Long>> times = new HashMap<>();
+            final Map<String, List<Long>> times = new HashMap<>();
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -150,8 +151,7 @@ public class ArticleWebView extends SearchableWebView {
                 }
                 if (times.containsKey(url)) {
                     Log.d(TAG, "onPageStarted: already ready seen " + url);
-                    times.get(url).add(System.currentTimeMillis());
-                    return;
+                    Objects.requireNonNull(times.get(url)).add(System.currentTimeMillis());
                 }
                 else {
                     List<Long> tsList = new ArrayList<>();
@@ -175,6 +175,7 @@ public class ArticleWebView extends SearchableWebView {
                 }
                 if (times.containsKey(url)) {
                     List<Long> tsList = times.get(url);
+                    assert tsList != null;
                     long ts = tsList.remove(tsList.size() - 1);
                     Log.d(TAG, "onPageFinished: finished: " + url + " in " + (System.currentTimeMillis() - ts));
                     if (tsList.isEmpty()) {
@@ -204,7 +205,7 @@ public class ArticleWebView extends SearchableWebView {
                     return null;
                 }
                 String host = parsed.getHost();
-                if (host == null || host.toLowerCase().equals(LOCALHOST)) {
+                if (host == null || host.equalsIgnoreCase(LOCALHOST)) {
                     return null;
                 }
                 if (allowRemoteContent()) {
@@ -234,21 +235,28 @@ public class ArticleWebView extends SearchableWebView {
                 if (fragment != null ) {
                     Uri current = Uri.parse(view.getUrl());
                     Log.d(TAG, "shouldOverrideUrlLoading URL with fragment: " + url);
-                    if (scheme.equals(current.getScheme()) &&
-                            host.equals(current.getHost()) &&
-                            uri.getPort() == current.getPort() &&
-                            uri.getPath().equals(current.getPath())) {
-                        Log.d(TAG, "NOT overriding loading of same page link " + url);
-                        return false;
+                    assert scheme != null;
+                    if (scheme.equals(current.getScheme())) {
+                        assert host != null;
+                        if (host.equals(current.getHost()) &&
+                                uri.getPort() == current.getPort() &&
+                                Objects.equals(uri.getPath(), current.getPath())) {
+                            Log.d(TAG, "NOT overriding loading of same page link " + url);
+                            return false;
+                        }
                     }
                 }
 
-                if (scheme.equals("http") && host.equals(LOCALHOST) && uri.getQueryParameter("blob") == null) {
-                    Intent intent = new Intent(getContext(), ArticleCollectionActivity.class);
-                    intent.setData(uri);
-                    getContext().startActivity(intent);
-                    Log.d(TAG, "Overriding loading of " + url);
-                    return true;
+                assert scheme != null;
+                if (scheme.equals("http")) {
+                    assert host != null;
+                    if (host.equals(LOCALHOST) && uri.getQueryParameter("blob") == null) {
+                        Intent intent = new Intent(getContext(), ArticleCollectionActivity.class);
+                        intent.setData(uri);
+                        getContext().startActivity(intent);
+                        Log.d(TAG, "Overriding loading of " + url);
+                        return true;
+                    }
                 }
                 Log.d(TAG, "NOT overriding loading of " + url);
                 return false;
@@ -297,10 +305,8 @@ public class ArticleWebView extends SearchableWebView {
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             if (networkInfo != null) {
                 int networkType = networkInfo.getType();
-                if (networkType == ConnectivityManager.TYPE_WIFI ||
-                        networkType == ConnectivityManager.TYPE_ETHERNET) {
-                    return true;
-                }
+                return networkType == ConnectivityManager.TYPE_WIFI ||
+                        networkType == ConnectivityManager.TYPE_ETHERNET;
             }
         }
         return false;
@@ -310,12 +316,12 @@ public class ArticleWebView extends SearchableWebView {
         final SharedPreferences prefs = getContext().getSharedPreferences(
                 "userStyles", Activity.MODE_PRIVATE);
         Map<String, ?> data = prefs.getAll();
-        List<String> names = new ArrayList<String>(data.keySet());
+        List<String> names = new ArrayList<>(data.keySet());
         Util.sort(names);
         names.addAll(styleTitles);
         names.add(defaultStyleTitle);
         names.add(autoStyleTitle);
-        return names.toArray(new String[names.size()]);
+        return names.toArray(new String[0]);
     }
 
     private boolean isUIDark() {
@@ -457,29 +463,21 @@ public class ArticleWebView extends SearchableWebView {
         this.setStyle(styleTitle);
     }
 
-    boolean textZoomIn() {
+    void textZoomIn() {
         WebSettings settings = getSettings();
         int newZoom = settings.getTextZoom() + 20;
         if (newZoom <= 200) {
             settings.setTextZoom(newZoom);
             saveTextZoomPref();
-            return true;
-        }
-        else {
-            return false;
         }
     }
 
-    boolean textZoomOut() {
+    void textZoomOut() {
         WebSettings settings = getSettings();
         int newZoom = settings.getTextZoom() - 20;
         if (newZoom >= 40) {
             settings.setTextZoom(newZoom);
             saveTextZoomPref();
-            return true;
-        }
-        else {
-            return false;
         }
     }
 
@@ -511,12 +509,10 @@ public class ArticleWebView extends SearchableWebView {
     private void updateBackgrounColor() {
         int color = Color.WHITE;
         String preferredStyle = getPreferredStyle().toLowerCase();
-        // webview's default background may "show through" before page
+        // Webview default background may "show through" before page
         // load started and/or before page's style applies (and even after that if
-        // style doesn't explicitly set background).
-        // this is a hack to preemptively set "right" background and prevent
-        // extra flash
-        //
+        // style doesn't explicitly set background). This is a hack to preemptively
+        // set "right" background and prevent extra flash
         // TODO Hack it even more - allow style title to include background color spec
         // so that this can work with "strategically" named user css
         if (preferredStyle.contains("night") || preferredStyle.contains("dark")) {
