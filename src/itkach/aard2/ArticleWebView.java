@@ -502,11 +502,11 @@ public class ArticleWebView extends SearchableWebView {
     private void beforeLoadUrl(String url) {
         setCurrentSlobIdFromUrl(url);
         if (!url.startsWith("javascript:")) {
-            updateBackgrounColor();
+            updateBackgroundColor();
         }
     }
 
-    private void updateBackgrounColor() {
+    private void updateBackgroundColor() {
         int color = Color.WHITE;
         String preferredStyle = getPreferredStyle().toLowerCase();
         // Webview default background may "show through" before page
