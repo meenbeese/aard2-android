@@ -202,7 +202,7 @@ public class ArticleCollectionActivity extends FragmentActivity
         Iterator<Slob.Blob> result = app.find(bd.key, bd.slobId);
         BlobListAdapter data = new BlobListAdapter(this, 20, 1);
         data.setData(result);
-        boolean hasFragment = !Util.isBlank(bd.fragment);
+        boolean hasFragment = !Utility.INSTANCE.isBlank(bd.fragment);
         return new ArticleCollectionPagerAdapter(
                 app, data, hasFragment ? new ToBlobWithFragment(bd.fragment) : blobToBlob, getSupportFragmentManager());
     }
@@ -242,7 +242,7 @@ public class ArticleCollectionActivity extends FragmentActivity
             if (length > 0) {
                 lookupKey = segments.get(length - 1);
             }
-            String slobUri = Util.wikipediaToSlobUri(uri);
+            String slobUri = Utility.INSTANCE.wikipediaToSlobUri(uri);
             Log.d(TAG, String.format("Converted URI %s to slob URI %s", uri, slobUri));
             if (slobUri != null) {
                 Slob slob = app.findSlob(slobUri);

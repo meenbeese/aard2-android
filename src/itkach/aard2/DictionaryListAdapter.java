@@ -51,7 +51,7 @@ public class DictionaryListAdapter extends BaseAdapter {
 
         openUrlOnClick = v -> {
             String url = (String)v.getTag();
-            if (!Util.isBlank(url)) {
+            if (!Utility.INSTANCE.isBlank(url)) {
                 try {
                     Uri uri = Uri.parse(url);
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
@@ -236,7 +236,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         String copyright = desc.tags.get("copyright");
         copyrightView.setText(copyright);
 
-        copyrightRow.setVisibility(Util.isBlank(copyright) ? View.GONE : View.VISIBLE);
+        copyrightRow.setVisibility(Utility.INSTANCE.isBlank(copyright) ? View.GONE : View.VISIBLE);
         copyrightRow.setEnabled(available);
     }
 
@@ -252,9 +252,9 @@ public class DictionaryListAdapter extends BaseAdapter {
         sourceView.setText(sourceHtml);
         sourceView.setTag(source);
 
-        int visibility = Util.isBlank(source) ? View.GONE : View.VISIBLE;
-        //Setting visibility on layout seems to have no effect
-        //if one of the children is a link
+        int visibility = Utility.INSTANCE.isBlank(source) ? View.GONE : View.VISIBLE;
+        // Setting visibility on layout seems to have
+        // no effect if one of the children is a link
         sourceIcon.setVisibility(visibility);
         sourceView.setVisibility(visibility);
         sourceRow.setVisibility(visibility);
@@ -271,11 +271,11 @@ public class DictionaryListAdapter extends BaseAdapter {
         String licenseName = desc.tags.get("license.name");
         String licenseUrl = desc.tags.get("license.url");
         CharSequence license;
-        if (Util.isBlank(licenseUrl)) {
+        if (Utility.INSTANCE.isBlank(licenseUrl)) {
             license = licenseName;
         }
         else {
-            if (Util.isBlank(licenseName)) {
+            if (Utility.INSTANCE.isBlank(licenseName)) {
                 licenseName = licenseUrl;
             }
             license = Html.fromHtml(String.format(hrefTemplate, licenseUrl, licenseName));
@@ -283,7 +283,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         licenseView.setText(license);
         licenseView.setTag(licenseUrl);
 
-        int visibility = (Util.isBlank(licenseName) && Util.isBlank(licenseUrl)) ? View.GONE : View.VISIBLE;
+        int visibility = (Utility.INSTANCE.isBlank(licenseName) && Utility.INSTANCE.isBlank(licenseUrl)) ? View.GONE : View.VISIBLE;
         licenseIcon.setVisibility(visibility);
         licenseView.setVisibility(visibility);
         licenseRow.setVisibility(visibility);

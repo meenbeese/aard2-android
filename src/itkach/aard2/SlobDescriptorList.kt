@@ -13,7 +13,7 @@ internal class SlobDescriptorList(
         // Dictionaries that are unfavorited
         // Go immediately after favorites
         if (d1.priority == 0L && d2.priority == 0L) {
-            Util.compare(d2.lastAccess, d1.lastAccess)
+            Utility.compare(d2.lastAccess, d1.lastAccess)
         }
         // Favorites are always above other
         else if (d1.priority == 0L && d2.priority > 0L) {
@@ -24,7 +24,7 @@ internal class SlobDescriptorList(
         }
         // Old favorites are above more recent ones
         else {
-            Util.compare(d1.priority, d2.priority)
+            Utility.compare(d1.priority, d2.priority)
         }
     }
 
@@ -33,7 +33,7 @@ internal class SlobDescriptorList(
     }
 
     fun sort() {
-        Util.sort(this, comparator)
+        Utility.sort(this, comparator)
     }
 
     override fun load() {

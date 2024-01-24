@@ -317,7 +317,7 @@ public class ArticleWebView extends SearchableWebView {
                 "userStyles", Activity.MODE_PRIVATE);
         Map<String, ?> data = prefs.getAll();
         List<String> names = new ArrayList<>(data.keySet());
-        Util.sort(names);
+        Utility.INSTANCE.sort(names);
         names.addAll(styleTitles);
         names.add(defaultStyleTitle);
         names.add(autoStyleTitle);

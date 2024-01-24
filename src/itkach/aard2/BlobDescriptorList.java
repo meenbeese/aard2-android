@@ -67,11 +67,11 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
 
         nameComparatorDesc = Collections.reverseOrder(nameComparatorAsc);
 
-        timeComparatorAsc = (b1, b2) -> Util.compare(b1.createdAt, b2.createdAt);
+        timeComparatorAsc = (b1, b2) -> Utility.INSTANCE.compare(b1.createdAt, b2.createdAt);
 
         timeComparatorDesc = Collections.reverseOrder(timeComparatorAsc);
 
-        lastAccessComparator = (b1, b2) -> Util.compare(b2.lastAccess, b1.lastAccess);
+        lastAccessComparator = (b1, b2) -> Utility.INSTANCE.compare(b2.lastAccess, b1.lastAccess);
 
         order = SortOrder.TIME;
         ascending = false;
@@ -118,7 +118,7 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
     }
 
     private void sortOrderChanged() {
-        Util.sort(this.filteredList, comparator);
+        Utility.INSTANCE.sort(this.filteredList, comparator);
         this.dataSetObservable.notifyChanged();
     }
 
@@ -217,7 +217,7 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
         this.list.add(bd);
         store.save(bd);
         if (this.list.size() > this.maxSize) {
-            Util.sort(this.list, lastAccessComparator);
+            Utility.INSTANCE.sort(this.list, lastAccessComparator);
             BlobDescriptor lru = this.list.remove(this.list.size() - 1);
             store.delete(lru.id);
         }
