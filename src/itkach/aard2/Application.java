@@ -86,9 +86,7 @@ public class Application extends android.app.Application {
             } catch (NoSuchMethodException e1) {
                 Log.d(TAG,
                         "setWebContentsDebuggingEnabledMethod method not found");
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
