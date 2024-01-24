@@ -78,17 +78,13 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(Build.VERSION.SDK_INT >= 19) {
-            try {
-                Method setWebContentsDebuggingEnabledMethod = WebView.class.getMethod(
-                        "setWebContentsDebuggingEnabled", boolean.class);
-                setWebContentsDebuggingEnabledMethod.invoke(null, true);
-            } catch (NoSuchMethodException e1) {
-                Log.d(TAG,
-                        "setWebContentsDebuggingEnabledMethod method not found");
-            } catch (InvocationTargetException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+        try {
+            Method setWebContentsDebuggingEnabledMethod = WebView.class.getMethod("setWebContentsDebuggingEnabled", boolean.class);
+            setWebContentsDebuggingEnabledMethod.invoke(null, true);
+        } catch (NoSuchMethodException e1) {
+            Log.d(TAG, "setWebContentsDebuggingEnabledMethod method not found");
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
         }
         articleActivities = Collections.synchronizedList(new ArrayList<>());
 
