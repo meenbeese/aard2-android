@@ -13,7 +13,7 @@ repositories {
 
 android {
     namespace "itkach.aard2"
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "itkach.aard2"
