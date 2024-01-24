@@ -243,7 +243,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             view = inflater.inflate(R.layout.settings_user_styles_item, parent,
                     false);
             ImageView btnAdd = view.findViewById(R.id.setting_btn_add_user_style);
-            btnAdd.setImageDrawable(IconMaker.list(context, IconMaker.IC_ADD));
+            btnAdd.setImageDrawable(IconMaker.INSTANCE.list(context, IconMaker.IC_ADD));
             btnAdd.setOnClickListener(view1 -> {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -269,7 +269,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             View styleItemView = inflater.inflate(R.layout.user_styles_list_item, parent,
                     false);
             ImageView btnDelete = (ImageView)styleItemView.findViewById(R.id.user_styles_list_btn_delete);
-            btnDelete.setImageDrawable(IconMaker.list(context, IconMaker.IC_TRASH));
+            btnDelete.setImageDrawable(IconMaker.INSTANCE.list(context, IconMaker.IC_TRASH));
             btnDelete.setOnClickListener(onDeleteUserStyle);
 
             String name = userStyleNames.get(i);
@@ -391,15 +391,13 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
                     false);
 
             ImageView copyrightIcon = (ImageView) view.findViewById(R.id.setting_about_copyright_icon);
-
-            //copyrightIcon.setImageDrawable(FontIconDrawable.inflate(context, R.xml.ic_text_copyright));
-            copyrightIcon.setImageDrawable(IconMaker.text(context, IconMaker.IC_COPYRIGHT));
+            copyrightIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_COPYRIGHT));
 
             ImageView licenseIcon = (ImageView) view.findViewById(R.id.setting_about_license_icon);
-            licenseIcon.setImageDrawable(IconMaker.text(context, IconMaker.IC_LICENSE));
+            licenseIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_LICENSE));
 
             ImageView sourceIcon = (ImageView) view.findViewById(R.id.setting_about_source_icon);
-            sourceIcon.setImageDrawable(IconMaker.text(context, IconMaker.IC_EXTERNAL_LINK));
+            sourceIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_EXTERNAL_LINK));
 
             String appName = context.getString(R.string.app_name);
 

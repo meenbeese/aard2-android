@@ -39,7 +39,7 @@ public abstract class BaseListFragment extends ListFragment {
         emptyText.setMovementMethod(LinkMovementMethod.getInstance());
         emptyText.setText(getEmptyText());
         ImageView emptyIcon = (ImageView)(emptyView.findViewById(R.id.empty_icon));
-        emptyIcon.setImageDrawable(IconMaker.emptyView(getActivity(), getEmptyIcon()));
+        emptyIcon.setImageDrawable(IconMaker.INSTANCE.emptyView(getActivity(), getEmptyIcon()));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -82,11 +82,11 @@ public abstract class BaseListFragment extends ListFragment {
                     inflater.inflate(getSelectionMenuId(), menu);
                     MenuItem miDelete = menu.findItem(R.id.blob_descriptor_delete);
                     if (miDelete != null) {
-                        miDelete.setIcon(IconMaker.actionBar(getActivity(), IconMaker.IC_TRASH));
+                        miDelete.setIcon(IconMaker.INSTANCE.actionBar(getActivity(), IconMaker.IC_TRASH));
                     }
                     MenuItem miSelectAll = menu.findItem(R.id.blob_descriptor_select_all);
                     if (miSelectAll != null) {
-                        miSelectAll.setIcon(IconMaker.actionBar(getActivity(), IconMaker.IC_SELECT_ALL));
+                        miSelectAll.setIcon(IconMaker.INSTANCE.actionBar(getActivity(), IconMaker.IC_SELECT_ALL));
                     }
                     setSelectionMode(true);
                     return true;

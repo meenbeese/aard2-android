@@ -115,11 +115,11 @@ abstract class BlobDescriptorListFragment extends BaseListFragment {
 
         final FragmentActivity activity = getActivity();
 
-        icFilter = IconMaker.actionBar(activity, IconMaker.IC_FILTER);
-        icClock =  IconMaker.actionBar(activity, IconMaker.IC_CLOCK);
-        icList = IconMaker.actionBar(activity, IconMaker.IC_LIST);
-        icArrowUp = IconMaker.actionBar(activity, IconMaker.IC_SORT_ASC);
-        icArrowDown = IconMaker.actionBar(activity, IconMaker.IC_SORT_DESC);
+        icFilter = IconMaker.INSTANCE.actionBar(activity, IconMaker.IC_FILTER);
+        icClock =  IconMaker.INSTANCE.actionBar(activity, IconMaker.IC_CLOCK);
+        icList = IconMaker.INSTANCE.actionBar(activity, IconMaker.IC_LIST);
+        icArrowUp = IconMaker.INSTANCE.actionBar(activity, IconMaker.IC_SORT_ASC);
+        icArrowDown = IconMaker.INSTANCE.actionBar(activity, IconMaker.IC_SORT_DESC);
 
         final ListView listView = getListView();
         listView.setOnItemClickListener((parent, view1, position, id) -> {

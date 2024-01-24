@@ -172,7 +172,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         ImageView btnToggleDetail = (ImageView) view
                 .findViewById(R.id.dictionary_btn_toggle_detail);
         char toggleIcon = desc.expandDetail ? IconMaker.IC_ANGLE_UP : IconMaker.IC_ANGLE_DOWN;
-        btnToggleDetail.setImageDrawable(IconMaker.list(context, toggleIcon));
+        btnToggleDetail.setImageDrawable(IconMaker.INSTANCE.list(context, toggleIcon));
 
         View viewDetailToggle = view
                 .findViewById(R.id.dictionary_detail_toggle);
@@ -180,13 +180,13 @@ public class DictionaryListAdapter extends BaseAdapter {
 
         ImageView btnForget = (ImageView) view
                 .findViewById(R.id.dictionary_btn_forget);
-        btnForget.setImageDrawable(IconMaker.list(context, IconMaker.IC_TRASH));
+        btnForget.setImageDrawable(IconMaker.INSTANCE.list(context, IconMaker.IC_TRASH));
         btnForget.setTag(position);
 
         ImageView btnToggleFav = (ImageView) view
                 .findViewById(R.id.dictionary_btn_toggle_fav);
         char favIcon = desc.priority > 0 ? IconMaker.IC_STAR: IconMaker.IC_STAR_O;
-        btnToggleFav.setImageDrawable(IconMaker.list(context, favIcon));
+        btnToggleFav.setImageDrawable(IconMaker.INSTANCE.list(context, favIcon));
         btnToggleFav.setTag(position);
         return view;
     }
@@ -195,7 +195,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         View pathRow = view.findViewById(R.id.dictionary_path_row);
 
         ImageView pathIcon = (ImageView) view.findViewById(R.id.dictionary_path_icon);
-        pathIcon.setImageDrawable(IconMaker.text(context, IconMaker.IC_FILE_ARCHIVE));
+        pathIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_FILE_ARCHIVE));
 
         TextView pathView = (TextView) view.findViewById(R.id.dictionary_path);
         pathView.setText(path);
@@ -207,7 +207,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         View errorRow= view.findViewById(R.id.dictionary_error_row);
 
         ImageView errorIcon = (ImageView) view.findViewById(R.id.dictionary_error_icon);
-        errorIcon.setImageDrawable(IconMaker.errorText(context, IconMaker.IC_ERROR));
+        errorIcon.setImageDrawable(IconMaker.INSTANCE.errorText(context, IconMaker.IC_ERROR));
 
         TextView errorView = (TextView) view
                 .findViewById(R.id.dictionary_error);
@@ -230,7 +230,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         View copyrightRow= view.findViewById(R.id.dictionary_copyright_row);
 
         ImageView copyrightIcon = (ImageView) view.findViewById(R.id.dictionary_copyright_icon);
-        copyrightIcon.setImageDrawable(IconMaker.text(context, IconMaker.IC_COPYRIGHT));
+        copyrightIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_COPYRIGHT));
 
         TextView copyrightView = (TextView) view.findViewById(R.id.dictionary_copyright);
         String copyright = desc.tags.get("copyright");
@@ -244,7 +244,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         View sourceRow = view.findViewById(R.id.dictionary_license_row);
 
         ImageView sourceIcon = (ImageView) view.findViewById(R.id.dictionary_source_icon);
-        sourceIcon.setImageDrawable(IconMaker.text(context, IconMaker.IC_EXTERNAL_LINK));
+        sourceIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_EXTERNAL_LINK));
 
         TextView sourceView = (TextView) view.findViewById(R.id.dictionary_source);
         String source = desc.tags.get("source");
@@ -265,7 +265,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         View licenseRow= view.findViewById(R.id.dictionary_license_row);
 
         ImageView licenseIcon = (ImageView) view.findViewById(R.id.dictionary_license_icon);
-        licenseIcon.setImageDrawable(IconMaker.text(context, IconMaker.IC_LICENSE));
+        licenseIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_LICENSE));
 
         TextView licenseView = (TextView) view.findViewById(R.id.dictionary_license);
         String licenseName = desc.tags.get("license.name");

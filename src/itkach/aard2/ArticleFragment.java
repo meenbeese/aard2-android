@@ -38,9 +38,9 @@ public class ArticleFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Activity activity = getActivity();
         Context context = activity.getActionBar().getThemedContext();
-        icBookmark =  IconMaker.actionBar(context, IconMaker.IC_BOOKMARK);
-        icBookmarkO = IconMaker.actionBar(context, IconMaker.IC_BOOKMARK_O);
-        icFullscreen = IconMaker.actionBar(context, IconMaker.IC_FULLSCREEN);
+        icBookmark =  IconMaker.INSTANCE.actionBar(context, IconMaker.IC_BOOKMARK);
+        icBookmarkO = IconMaker.INSTANCE.actionBar(context, IconMaker.IC_BOOKMARK_O);
+        icFullscreen = IconMaker.INSTANCE.actionBar(context, IconMaker.IC_FULLSCREEN);
         setHasOptionsMenu(true);
     }
 
@@ -140,7 +140,7 @@ public class ArticleFragment extends Fragment {
             TextView textView = (TextView)layout.findViewById(R.id.empty_text);
             textView.setText("");
             ImageView icon = (ImageView) layout.findViewById(R.id.empty_icon);
-            icon.setImageDrawable(IconMaker.emptyView(getActivity(),
+            icon.setImageDrawable(IconMaker.INSTANCE.emptyView(getActivity(),
                     IconMaker.IC_BAN));
             this.setHasOptionsMenu(false);
             return layout;

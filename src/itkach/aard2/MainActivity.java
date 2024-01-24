@@ -72,11 +72,11 @@ public class MainActivity extends FragmentActivity implements
                 });
 
         Drawable[] tabIcons = new Drawable[5];
-        tabIcons[0] = IconMaker.tab(this, IconMaker.IC_SEARCH);
-        tabIcons[1] = IconMaker.tab(this, IconMaker.IC_BOOKMARK);
-        tabIcons[2] = IconMaker.tab(this, IconMaker.IC_HISTORY);
-        tabIcons[3] = IconMaker.tab(this, IconMaker.IC_DICTIONARY);
-        tabIcons[4] = IconMaker.tab(this, IconMaker.IC_SETTINGS);
+        tabIcons[0] = IconMaker.INSTANCE.tab(this, IconMaker.IC_SEARCH);
+        tabIcons[1] = IconMaker.INSTANCE.tab(this, IconMaker.IC_BOOKMARK);
+        tabIcons[2] = IconMaker.INSTANCE.tab(this, IconMaker.IC_HISTORY);
+        tabIcons[3] = IconMaker.INSTANCE.tab(this, IconMaker.IC_DICTIONARY);
+        tabIcons[4] = IconMaker.INSTANCE.tab(this, IconMaker.IC_SETTINGS);
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < appSectionsPagerAdapter.getCount(); i++) {
             Tab tab = actionBar.newTab();
