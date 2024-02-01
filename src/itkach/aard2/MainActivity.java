@@ -138,8 +138,8 @@ public class MainActivity extends FragmentActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                Application app = (Application)getApplication();
+            case android.R.id.home -> {
+                Application app = (Application) getApplication();
                 Slob.Blob blob = app.random();
                 if (blob == null) {
                     Toast.makeText(this,
@@ -152,8 +152,10 @@ public class MainActivity extends FragmentActivity implements
                 intent.setData(Uri.parse(app.getUrl(blob)));
                 startActivity(intent);
                 return true;
-            default:
+            }
+            default -> {
                 return super.onOptionsItemSelected(item);
+            }
         }
     }
 

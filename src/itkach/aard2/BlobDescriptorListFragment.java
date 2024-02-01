@@ -67,7 +67,7 @@ abstract class BlobDescriptorListFragment extends BaseListFragment {
     protected boolean onSelectionActionItemClicked(final ActionMode mode, MenuItem item) {
         ListView listView = getListView();
         switch (item.getItemId()) {
-            case R.id.blob_descriptor_delete:
+            case R.id.blob_descriptor_delete -> {
                 int count = listView.getCheckedItemCount();
                 String countStr = getResources().getQuantityString(getDeleteConfirmationItemCountResId(), count, count);
                 String message = getString(R.string.blob_descriptor_confirm_delete, countStr);
@@ -84,14 +84,17 @@ abstract class BlobDescriptorListFragment extends BaseListFragment {
                 deleteConfirmationDialog.setOnDismissListener(dialogInterface -> deleteConfirmationDialog = null);
                 deleteConfirmationDialog.show();
                 return true;
-            case R.id.blob_descriptor_select_all:
+            }
+            case R.id.blob_descriptor_select_all -> {
                 int itemCount = listView.getCount();
                 for (int i = itemCount - 1; i > -1; --i) {
                     listView.setItemChecked(i, true);
                 }
                 return true;
-            default:
+            }
+            default -> {
                 return false;
+            }
         }
     }
 

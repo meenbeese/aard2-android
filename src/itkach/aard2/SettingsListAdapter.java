@@ -92,17 +92,17 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-        switch (i) {
-            case POS_UI_THEME: return getUIThemeSettingsView(convertView, parent);
-            case POS_REMOTE_CONTENT: return getRemoteContentSettingsView(convertView, parent);
-            case POS_FAV_RANDOM: return getFavRandomSwitchView(convertView, parent);
-            case POS_USE_VOLUME_FOR_NAV: return getUseVolumeForNavView(convertView, parent);
-            case POS_AUTO_PASTE: return getAutoPasteView(convertView, parent);
-            case POS_USER_STYLES: return getUserStylesView(convertView, parent);
-            case POS_CLEAR_CACHE: return getClearCacheView(convertView, parent);
-            case POS_ABOUT: return getAboutView(convertView, parent);
-        }
-        return null;
+        return switch (i) {
+            case POS_UI_THEME -> getUIThemeSettingsView(convertView, parent);
+            case POS_REMOTE_CONTENT -> getRemoteContentSettingsView(convertView, parent);
+            case POS_FAV_RANDOM -> getFavRandomSwitchView(convertView, parent);
+            case POS_USE_VOLUME_FOR_NAV -> getUseVolumeForNavView(convertView, parent);
+            case POS_AUTO_PASTE -> getAutoPasteView(convertView, parent);
+            case POS_USER_STYLES -> getUserStylesView(convertView, parent);
+            case POS_CLEAR_CACHE -> getClearCacheView(convertView, parent);
+            case POS_ABOUT -> getAboutView(convertView, parent);
+            default -> null;
+        };
     }
 
     private View getUIThemeSettingsView(View convertView, ViewGroup parent) {
@@ -124,15 +124,11 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
 
             View.OnClickListener clickListener = view1 -> {
                 SharedPreferences.Editor editor = prefs.edit();
-                String value = null;
-                switch(view1.getId()) {
-                    case R.id.setting_ui_theme_light:
-                        value = Application.PREF_UI_THEME_LIGHT;
-                        break;
-                    case R.id.setting_ui_theme_dark:
-                        value = Application.PREF_UI_THEME_DARK;
-                        break;
-                }
+                String value = switch (view1.getId()) {
+                    case R.id.setting_ui_theme_light -> Application.PREF_UI_THEME_LIGHT;
+                    case R.id.setting_ui_theme_dark -> Application.PREF_UI_THEME_DARK;
+                    default -> null;
+                };
                 Log.d("Settings", Application.PREF_UI_THEME + ": " + value);
                 if (value != null) {
                     editor.putString(Application.PREF_UI_THEME, value);
@@ -329,18 +325,15 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
 
             View.OnClickListener clickListener = view1 -> {
                 SharedPreferences.Editor editor = prefs.edit();
-                String value = null;
-                switch(view1.getId()) {
-                    case R.id.setting_remote_content_always:
-                        value = ArticleWebView.PREF_REMOTE_CONTENT_ALWAYS;
-                        break;
-                    case R.id.setting_remote_content_wifi:
-                        value = ArticleWebView.PREF_REMOTE_CONTENT_WIFI;
-                        break;
-                    case R.id.setting_remote_content_never:
-                        value = ArticleWebView.PREF_REMOTE_CONTENT_NEVER;
-                        break;
-                }
+                String value = switch (view1.getId()) {
+                    case R.id.setting_remote_content_always ->
+                            ArticleWebView.PREF_REMOTE_CONTENT_ALWAYS;
+                    case R.id.setting_remote_content_wifi ->
+                            ArticleWebView.PREF_REMOTE_CONTENT_WIFI;
+                    case R.id.setting_remote_content_never ->
+                            ArticleWebView.PREF_REMOTE_CONTENT_NEVER;
+                    default -> null;
+                };
                 Log.d("Settings", "Remote content: " + value);
                 if (value != null) {
                     editor.putString(ArticleWebView.PREF_REMOTE_CONTENT, value);
