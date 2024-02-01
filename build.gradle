@@ -3,14 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.9.22' apply true
 }
 
-repositories {
-    mavenCentral()
-    google()
-    maven {
-        url "https://jitpack.io"
-    }
-}
-
 android {
     namespace "itkach.aard2"
     compileSdk 34
@@ -75,7 +67,6 @@ android {
     lint {
         abortOnError false
     }
-
 }
 
 dependencies {
