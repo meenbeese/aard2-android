@@ -12,6 +12,10 @@ object Utility {
         return l1.compareTo(l2)
     }
 
+    fun isBlank(value: String?): Boolean {
+        return value == null || value.trim() == ""
+    }
+
     fun <T : Comparable<T>> sort(list: MutableList<T>) {
         try {
             list.sort()
@@ -28,20 +32,16 @@ object Utility {
         }
     }
 
-    fun isBlank(value: String?): Boolean {
-        return value == null || value.trim() == ""
-    }
-
     fun wikipediaToSlobUri(uri: Uri): String? {
         val host = uri.host
-        if (isBlank(host)) {
+        if (host.isNullOrBlank()) {
             return null
         }
         var normalizedHost = host
         val parts = host?.split("\\.".toRegex())?.toTypedArray()
         // If mobile host like en.m.wikipedia.opr get rid of m
         if (parts?.size == 4) {
-            normalizedHost = String.format("%s.%s.%s", parts[0], parts[2], parts[3])
+            normalizedHost = "${parts[0]}.${parts[2]}.${parts[3]}"
         }
         return "http://$normalizedHost"
     }
