@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import itkach.slob.Slob;
 import itkach.slob.Slob.Blob;
@@ -48,7 +49,7 @@ public class ArticleCollectionActivity extends FragmentActivity
     ViewPager viewPager;
 
 
-    class ToBlobWithFragment implements ToBlob {
+    static class ToBlobWithFragment implements ToBlob {
 
         private final String fragment;
 
@@ -65,7 +66,6 @@ public class ArticleCollectionActivity extends FragmentActivity
 
     ToBlob blobToBlob = item -> (Blob)item;
 
-
     private boolean onDestroyCalled = false;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class ArticleCollectionActivity extends FragmentActivity
         requestWindowFeature(Window.FEATURE_PROGRESS);
         final Application app = (Application)getApplication();
         app.installTheme(this);
-        getActionBar().hide();
+        Objects.requireNonNull(getActionBar()).hide();
         setContentView(R.layout.activity_article_collection_loading);
         app.push(this);
         final ActionBar actionBar = getActionBar();
@@ -82,12 +82,12 @@ public class ArticleCollectionActivity extends FragmentActivity
         final Intent intent = getIntent();
         final int position = intent.getIntExtra("position", 0);
 
-        AsyncTask<Void, Void, ArticleCollectionPagerAdapter> createAdapterTask = new AsyncTask<Void, Void, ArticleCollectionPagerAdapter>(){
+        AsyncTask<Void, Void, ArticleCollectionPagerAdapter> createAdapterTask = new AsyncTask<>() {
 
             Exception exception;
 
             @Override
-            protected ArticleCollectionPagerAdapter doInBackground(Void ... params) {
+            protected ArticleCollectionPagerAdapter doInBackground(Void... params) {
                 ArticleCollectionPagerAdapter result = null;
                 Uri articleUrl = intent.getData();
                 try {
@@ -105,8 +105,7 @@ public class ArticleCollectionActivity extends FragmentActivity
                             result = createFromIntent(app, intent);
                         }
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     this.exception = e;
                 }
                 return result;
@@ -129,8 +128,7 @@ public class ArticleCollectionActivity extends FragmentActivity
                     int messageId;
                     if (articleCollectionPagerAdapter == null) {
                         messageId = R.string.article_collection_invalid_link;
-                    }
-                    else {
+                    } else {
                         messageId = R.string.article_collection_nothing_found;
                     }
                     Toast.makeText(ArticleCollectionActivity.this, messageId,
@@ -153,26 +151,29 @@ public class ArticleCollectionActivity extends FragmentActivity
 
                 viewPager = (ViewPager) findViewById(R.id.pager);
                 viewPager.setAdapter(articleCollectionPagerAdapter);
-                viewPager.setOnPageChangeListener(new OnPageChangeListener(){
+                viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 
                     @Override
-                    public void onPageScrollStateChanged(int arg0) {}
+                    public void onPageScrollStateChanged(int arg0) {
+                    }
 
                     @Override
-                    public void onPageScrolled(int arg0, float arg1, int arg2) {}
+                    public void onPageScrolled(int arg0, float arg1, int arg2) {
+                    }
 
                     @Override
                     public void onPageSelected(final int position) {
                         updateTitle(position);
                         runOnUiThread(() -> {
-                            ArticleFragment fragment =(ArticleFragment) articleCollectionPagerAdapter.getItem(position);
+                            ArticleFragment fragment = (ArticleFragment) articleCollectionPagerAdapter.getItem(position);
                             fragment.applyTextZoomPref();
                         });
 
-                    }});
+                    }
+                });
                 viewPager.setCurrentItem(position);
 
-                PagerTitleStrip titleStrip = (PagerTitleStrip)findViewById(R.id.pager_title_strip);
+                PagerTitleStrip titleStrip = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
                 titleStrip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
                 updateTitle(position);
                 articleCollectionPagerAdapter.registerDataSetObserver(new DataSetObserver() {
@@ -192,6 +193,7 @@ public class ArticleCollectionActivity extends FragmentActivity
 
     private ArticleCollectionPagerAdapter createFromUri(Application app, Uri articleUrl) {
         String host = articleUrl.getHost();
+        assert host != null;
         if (!(host.equals("localhost") || host.matches("127.\\d{1,3}.\\d{1,3}.\\d{1,3}"))) {
             return createFromIntent(app, getIntent());
         }
@@ -224,9 +226,9 @@ public class ArticleCollectionActivity extends FragmentActivity
 
     private ArticleCollectionPagerAdapter createFromIntent(Application app, Intent intent) {
         String lookupKey = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (intent.getAction().equals(Intent.ACTION_PROCESS_TEXT)) {
-            lookupKey = getIntent()
-                    .getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString();
+        if (Objects.equals(intent.getAction(), Intent.ACTION_PROCESS_TEXT)) {
+            lookupKey = Objects.requireNonNull(getIntent()
+                    .getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)).toString();
         }
         if (lookupKey == null) {
             lookupKey = intent.getStringExtra(SearchManager.QUERY);
@@ -237,6 +239,7 @@ public class ArticleCollectionActivity extends FragmentActivity
         String preferredSlobId = null;
         if (lookupKey == null) {
             Uri uri = intent.getData();
+            assert uri != null;
             List<String> segments = uri.getPathSegments();
             int length = segments.size();
             if (length > 0) {
@@ -265,10 +268,6 @@ public class ArticleCollectionActivity extends FragmentActivity
                 app, data, blobToBlob, getSupportFragmentManager());
     }
 
-    private Iterator<Blob> stemLookup(Application app, String lookupKey) {
-        return this.stemLookup(app, lookupKey, null);
-    }
-
     private Iterator<Blob> stemLookup(Application app, String lookupKey, String preferredSlobId) {
         Slob.PeekableIterator<Blob> result;
         final int length = lookupKey.length();
@@ -292,18 +291,20 @@ public class ArticleCollectionActivity extends FragmentActivity
     }
 
     private void updateTitle(int position) {
-        Log.d("updateTitle", ""+position + " count: " + articleCollectionPagerAdapter.getCount());
+        Log.d("updateTitle", position + " count: " + articleCollectionPagerAdapter.getCount());
         Slob.Blob blob = articleCollectionPagerAdapter.get(position);
         CharSequence pageTitle = articleCollectionPagerAdapter.getPageTitle(position);
-        Log.d("updateTitle", ""+blob);
+        Log.d("updateTitle", String.valueOf(blob));
         ActionBar actionBar = getActionBar();
         if (blob != null) {
             String dictLabel = blob.owner.getTags().get("label");
+            assert actionBar != null;
             actionBar.setTitle(dictLabel);
             Application app = (Application)getApplication();
             app.history.add(app.getUrl(blob));
         }
         else {
+            assert actionBar != null;
             actionBar.setTitle("???");
         }
         actionBar.setSubtitle(pageTitle);
@@ -312,6 +313,7 @@ public class ArticleCollectionActivity extends FragmentActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        assert key != null;
         if (key.equals(PREF_FULLSCREEN)) {
             applyFullScreenPref();
         }
@@ -337,7 +339,7 @@ public class ArticleCollectionActivity extends FragmentActivity
     private void setFullScreenPref(boolean value) {
         SharedPreferences.Editor editor = prefs().edit();
         editor.putBoolean(PREF_FULLSCREEN, value);
-        editor.commit();
+        editor.apply();
     }
 
     private void fullScreen() {
@@ -347,13 +349,13 @@ public class ArticleCollectionActivity extends FragmentActivity
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE
         );
-        getActionBar().hide();
+        Objects.requireNonNull(getActionBar()).hide();
     }
 
     private void unFullScreen() {
         Log.d(TAG, "[F] unfullscreen");
         getWindow().getDecorView().setSystemUiVisibility(0);
-        getActionBar().show();
+        Objects.requireNonNull(getActionBar()).show();
     }
 
     void toggleFullScreen() {
@@ -395,22 +397,22 @@ public class ArticleCollectionActivity extends FragmentActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home -> {
-                Intent upIntent = Intent.makeMainActivity(new ComponentName(this, MainActivity.class));
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    TaskStackBuilder.create(this)
-                            .addNextIntent(upIntent).startActivities();
-                    finish();
-                } else {
-                    // This activity is part of the application's task, so simply
-                    // navigate up to the hierarchical parent activity.
-                    upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(upIntent);
-                    finish();
-                }
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            Intent upIntent = Intent.makeMainActivity(new ComponentName(this, MainActivity.class));
+            if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                TaskStackBuilder
+                        .create(this)
+                        .addNextIntent(upIntent)
+                        .startActivities();
+                finish();
+            } else {
+                // This activity is part of the application's task, so simply
+                // navigate up to the hierarchical parent activity.
+                upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(upIntent);
+                finish();
             }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -510,10 +512,12 @@ public class ArticleCollectionActivity extends FragmentActivity
             ArticleWebView webView = af.getWebView();
 
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                assert webView != null;
                 webView.pageUp(true);
                 return true;
             }
             if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                assert webView != null;
                 webView.pageDown(true);
                 return true;
             }
@@ -522,16 +526,16 @@ public class ArticleCollectionActivity extends FragmentActivity
     }
 
 
-    static interface ToBlob {
+    interface ToBlob {
         Slob.Blob convert(Object item);
     }
 
     public static class ArticleCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
         private Application app;
-        private DataSetObserver observer;
+        private final DataSetObserver observer;
         private BaseAdapter data;
-        private ToBlob toBlob;
+        private final ToBlob toBlob;
         private int count;
         private ArticleFragment primaryItem;
 
