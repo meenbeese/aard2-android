@@ -136,10 +136,8 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
                 }
                 context.recreate();
             };
-            RadioButton btnLight = (RadioButton) view
-                    .findViewById(R.id.setting_ui_theme_light);
-            RadioButton btnDark = (RadioButton) view
-                    .findViewById(R.id.setting_ui_theme_dark);
+            RadioButton btnLight = view.findViewById(R.id.setting_ui_theme_light);
+            RadioButton btnDark = view.findViewById(R.id.setting_ui_theme_dark);
             btnLight.setOnClickListener(clickListener);
             btnDark.setOnClickListener(clickListener);
             btnLight.setChecked(currentValue.equals(Application.PREF_UI_THEME_LIGHT));
@@ -159,7 +157,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
         else {
             view = inflater.inflate(R.layout.settings_fav_random_search, parent,
                     false);
-            final CheckedTextView toggle = (CheckedTextView)view.findViewById(R.id.setting_fav_random_search);
+            final CheckedTextView toggle = view.findViewById(R.id.setting_fav_random_search);
             toggle.setOnClickListener(v -> {
                 boolean currentValue = app.isOnlyFavDictsForRandomLookup();
                 boolean newValue = !currentValue;
@@ -168,7 +166,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             });
         }
         boolean currentValue = app.isOnlyFavDictsForRandomLookup();
-        CheckedTextView toggle = (CheckedTextView)view.findViewById(R.id.setting_fav_random_search);
+        CheckedTextView toggle = view.findViewById(R.id.setting_fav_random_search);
         toggle.setChecked(currentValue);
         return view;
     }
@@ -184,7 +182,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
         else {
             view = inflater.inflate(R.layout.settings_use_volume_for_nav, parent,
                     false);
-            final CheckedTextView toggle = (CheckedTextView)view.findViewById(R.id.setting_use_volume_for_nav);
+            final CheckedTextView toggle = view.findViewById(R.id.setting_use_volume_for_nav);
             toggle.setOnClickListener(v -> {
                 boolean currentValue = app.useVolumeForNav();
                 boolean newValue = !currentValue;
@@ -193,7 +191,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             });
         }
         boolean currentValue = app.useVolumeForNav();
-        CheckedTextView toggle = (CheckedTextView)view.findViewById(R.id.setting_use_volume_for_nav);
+        CheckedTextView toggle = view.findViewById(R.id.setting_use_volume_for_nav);
         toggle.setChecked(currentValue);
         return view;
     }
@@ -209,7 +207,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
         else {
             view = inflater.inflate(R.layout.settings_auto_paste, parent,
                     false);
-            final CheckedTextView toggle = (CheckedTextView)view.findViewById(R.id.setting_auto_paste);
+            final CheckedTextView toggle = view.findViewById(R.id.setting_auto_paste);
             toggle.setOnClickListener(v -> {
                 boolean currentValue = app.autoPaste();
                 boolean newValue = !currentValue;
@@ -218,7 +216,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             });
         }
         boolean currentValue = app.autoPaste();
-        CheckedTextView toggle = (CheckedTextView)view.findViewById(R.id.setting_auto_paste);
+        CheckedTextView toggle = view.findViewById(R.id.setting_auto_paste);
         toggle.setChecked(currentValue);
         return view;
     }
@@ -259,12 +257,12 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
         View emptyView = view.findViewById(R.id.setting_user_styles_empty);
         emptyView.setVisibility(userStyleNames.size() == 0 ? View.VISIBLE : View.GONE);
 
-        LinearLayout userStyleListLayout = (LinearLayout)view.findViewById(R.id.setting_user_styles_list);
+        LinearLayout userStyleListLayout = view.findViewById(R.id.setting_user_styles_list);
         userStyleListLayout.removeAllViews();
         for (int i = 0; i < userStyleNames.size(); i++) {
             View styleItemView = inflater.inflate(R.layout.user_styles_list_item, parent,
                     false);
-            ImageView btnDelete = (ImageView)styleItemView.findViewById(R.id.user_styles_list_btn_delete);
+            ImageView btnDelete = styleItemView.findViewById(R.id.user_styles_list_btn_delete);
             btnDelete.setImageDrawable(IconMaker.INSTANCE.list(context, IconMaker.IC_TRASH));
             btnDelete.setOnClickListener(onDeleteUserStyle);
 
@@ -272,7 +270,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
 
             btnDelete.setTag(name);
 
-            TextView nameView = (TextView)styleItemView.findViewById(R.id.user_styles_list_name);
+            TextView nameView = styleItemView.findViewById(R.id.user_styles_list_name);
             nameView.setText(name);
 
             userStyleListLayout.addView(styleItemView);
@@ -340,12 +338,9 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
                     editor.apply();
                 }
             };
-            RadioButton btnAlways = (RadioButton) view
-                    .findViewById(R.id.setting_remote_content_always);
-            RadioButton btnWiFi = (RadioButton) view
-                    .findViewById(R.id.setting_remote_content_wifi);
-            RadioButton btnNever = (RadioButton) view
-                    .findViewById(R.id.setting_remote_content_never);
+            RadioButton btnAlways = view.findViewById(R.id.setting_remote_content_always);
+            RadioButton btnWiFi = view.findViewById(R.id.setting_remote_content_wifi);
+            RadioButton btnNever = view.findViewById(R.id.setting_remote_content_never);
             btnAlways.setOnClickListener(clickListener);
             btnWiFi.setOnClickListener(clickListener);
             btnNever.setOnClickListener(clickListener);
@@ -383,26 +378,26 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             view = inflater.inflate(R.layout.settings_about_item, parent,
                     false);
 
-            ImageView copyrightIcon = (ImageView) view.findViewById(R.id.setting_about_copyright_icon);
+            ImageView copyrightIcon = view.findViewById(R.id.setting_about_copyright_icon);
             copyrightIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_COPYRIGHT));
 
-            ImageView licenseIcon = (ImageView) view.findViewById(R.id.setting_about_license_icon);
+            ImageView licenseIcon = view.findViewById(R.id.setting_about_license_icon);
             licenseIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_LICENSE));
 
-            ImageView sourceIcon = (ImageView) view.findViewById(R.id.setting_about_source_icon);
+            ImageView sourceIcon = view.findViewById(R.id.setting_about_source_icon);
             sourceIcon.setImageDrawable(IconMaker.INSTANCE.text(context, IconMaker.IC_EXTERNAL_LINK));
 
             String appName = context.getString(R.string.app_name);
 
             String title = context.getString(R.string.setting_about, appName);
 
-            TextView titleView = (TextView)view.findViewById(R.id.setting_about);
+            TextView titleView = view.findViewById(R.id.setting_about);
             titleView.setText(title);
 
             String licenseName = context.getString(R.string.application_license_name);
             final String licenseUrl = context.getString(R.string.application_license_url);
             String license = context.getString(R.string.application_license, licenseUrl, licenseName);
-            TextView licenseView = (TextView)view.findViewById(R.id.application_license);
+            TextView licenseView = view.findViewById(R.id.application_license);
             licenseView.setOnClickListener(view1 -> {
                 Uri uri = Uri.parse(licenseUrl);
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
@@ -420,7 +415,7 @@ public class SettingsListAdapter extends BaseAdapter implements SharedPreference
             }
 
             String version = context.getString(R.string.application_version, versionName);
-            TextView versionView = (TextView)view.findViewById(R.id.application_version);
+            TextView versionView = view.findViewById(R.id.application_version);
             versionView.setText(Html.fromHtml(version));
 
         }

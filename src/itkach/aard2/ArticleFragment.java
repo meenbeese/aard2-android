@@ -132,9 +132,9 @@ public class ArticleFragment extends Fragment {
         this.url = args == null ? null : args.getString(ARG_URL);
         if (url == null) {
             View layout = inflater.inflate(R.layout.empty_view, container, false);
-            TextView textView = (TextView)layout.findViewById(R.id.empty_text);
+            TextView textView = layout.findViewById(R.id.empty_text);
             textView.setText("");
-            ImageView icon = (ImageView) layout.findViewById(R.id.empty_icon);
+            ImageView icon = layout.findViewById(R.id.empty_icon);
             icon.setImageDrawable(IconMaker.INSTANCE.emptyView(getActivity(),
                     IconMaker.IC_BAN));
             this.setHasOptionsMenu(false);
@@ -142,8 +142,8 @@ public class ArticleFragment extends Fragment {
         }
 
         View layout = inflater.inflate(R.layout.article_view, container, false);
-        final ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.webViewPogress);
-        view = (ArticleWebView) layout.findViewById(R.id.webView);
+        final ProgressBar progressBar = layout.findViewById(R.id.webViewPogress);
+        view = layout.findViewById(R.id.webView);
         view.restoreState(savedInstanceState);
         view.loadUrl(url);
         view.setWebChromeClient(new WebChromeClient() {

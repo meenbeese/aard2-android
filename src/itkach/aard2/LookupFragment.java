@@ -110,7 +110,7 @@ public class LookupFragment extends BaseListFragment implements LookupListener {
         MenuItem miFilter = menu.findItem(R.id.action_lookup);
         View filterActionView = miFilter.getActionView();
         assert filterActionView != null;
-        searchView = (SearchView) filterActionView.findViewById(R.id.fldLookup);
+        searchView = filterActionView.findViewById(R.id.fldLookup);
         searchView.setQueryHint(miFilter.getTitle());
         searchView.setIconified(false);
         searchView.setOnQueryTextListener(queryTextListener);
@@ -146,7 +146,7 @@ public class LookupFragment extends BaseListFragment implements LookupListener {
     private void setBusy(boolean busy) {
         setListShown(!busy);
         if (!busy) {
-            TextView emptyText = ((TextView)emptyView.findViewById(R.id.empty_text));
+            TextView emptyText = emptyView.findViewById(R.id.empty_text);
             String msg = "";
             String query = app.getLookupQuery();
             if (query != null && !query.equals("")) {
