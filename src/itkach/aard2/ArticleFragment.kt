@@ -58,59 +58,64 @@ class ArticleFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val itemId = item.itemId
-        if (itemId == R.id.action_find_in_page) {
-            webView?.showFindDialog(null, true)
-            return true
-        }
-        if (itemId == R.id.action_bookmark_article) {
-            val app = activity.application as Application
-            if (url != null) {
-                if (item.isChecked) {
-                    app.removeBookmark(url)
-                    displayBookmarked(false)
-                } else {
-                    app.addBookmark(url)
-                    displayBookmarked(true)
-                }
+        val app = activity.application as Application
+        return when (item.itemId) {
+            R.id.action_find_in_page -> {
+                webView?.showFindDialog(null, true)
+                true
             }
-            return true
-        }
-        if (itemId == R.id.action_fullscreen) {
-            (activity as ArticleCollectionActivity).toggleFullScreen()
-            return true
-        }
-        if (itemId == R.id.action_zoom_in) {
-            webView!!.textZoomIn()
-            return true
-        }
-        if (itemId == R.id.action_zoom_out) {
-            webView!!.textZoomOut()
-            return true
-        }
-        if (itemId == R.id.action_zoom_reset) {
-            webView!!.resetTextZoom()
-            return true
-        }
-        if (itemId == R.id.action_load_remote_content) {
-            webView!!.forceLoadRemoteContent = true
-            webView!!.reload()
-            return true
-        }
-        if (itemId == R.id.action_select_style) {
-            val builder = AlertDialog.Builder(activity)
-            val styleTitles = webView!!.availableStyles
-            builder.setTitle(R.string.select_style)
-                .setItems(styleTitles) { _: DialogInterface?, which: Int ->
-                    val title = styleTitles[which]
-                    webView!!.saveStylePref(title)
-                    webView!!.applyStylePref()
+            R.id.action_bookmark_article -> {
+                url?.let {
+                    if (item.isChecked) {
+                        app.removeBookmark(it)
+                        displayBookmarked(false)
+                    } else {
+                        app.addBookmark(it)
+                        displayBookmarked(true)
+                    }
                 }
-            val dialog = builder.create()
-            dialog.show()
-            return true
+                true
+            }
+            R.id.action_fullscreen -> {
+                (activity as ArticleCollectionActivity).toggleFullScreen()
+                true
+            }
+            R.id.action_zoom_in -> {
+                webView?.textZoomIn()
+                true
+            }
+            R.id.action_zoom_out -> {
+                webView?.textZoomOut()
+                true
+            }
+            R.id.action_zoom_reset -> {
+                webView?.resetTextZoom()
+                true
+            }
+            R.id.action_load_remote_content -> {
+                webView?.apply {
+                    forceLoadRemoteContent = true
+                    reload()
+                }
+                true
+            }
+            R.id.action_select_style -> {
+                val builder = AlertDialog.Builder(activity)
+                val styleTitles = webView?.availableStyles
+                builder.setTitle(R.string.select_style)
+                    .setItems(styleTitles) { _: DialogInterface?, which: Int ->
+                        val title = styleTitles?.get(which)
+                        webView?.apply {
+                            saveStylePref(title)
+                            applyStylePref()
+                        }
+                    }
+                val dialog = builder.create()
+                dialog.show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(
