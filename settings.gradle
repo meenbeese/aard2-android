@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-include ":slobj"
-include ":slobber"
+rootProject.name = "Aard 2"
+include(":slobj", ":slobber")
