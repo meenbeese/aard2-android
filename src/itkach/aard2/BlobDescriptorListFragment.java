@@ -161,8 +161,8 @@ abstract class BlobDescriptorListFragment extends BaseListFragment {
         miFilter.setIcon(icFilter);
 
         View filterActionView = miFilter.getActionView();
-        SearchView searchView = (SearchView) filterActionView
-                .findViewById(R.id.fldFilter);
+        assert filterActionView != null;
+        SearchView searchView = filterActionView.findViewById(R.id.fldFilter);
         searchView.setQueryHint(miFilter.getTitle());
         searchView.setQuery(list.getFilter(), true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -201,7 +201,7 @@ abstract class BlobDescriptorListFragment extends BaseListFragment {
         SharedPreferences p = this.prefs();
         SharedPreferences.Editor editor = p.edit();
         editor.putString(PREF_SORT_ORDER, order.name());
-        editor.commit();
+        editor.apply();
     }
 
     private void setAscending(MenuItem mi, boolean ascending) {
@@ -219,7 +219,7 @@ abstract class BlobDescriptorListFragment extends BaseListFragment {
         SharedPreferences p = this.prefs();
         SharedPreferences.Editor editor = p.edit();
         editor.putBoolean(PREF_SORT_DIRECTION, ascending);
-        editor.commit();
+        editor.apply();
     }
 
     @Override

@@ -57,8 +57,8 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
         this.app = app;
         this.store = store;
         this.maxSize = maxSize;
-        this.list = new ArrayList<BlobDescriptor>();
-        this.filteredList = new ArrayList<BlobDescriptor>();
+        this.list = new ArrayList<>();
+        this.filteredList = new ArrayList<>();
         this.dataSetObservable = new DataSetObservable();
         this.filter = "";
         keyComparator = Slob.Strength.QUATERNARY.comparator;
@@ -157,7 +157,6 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
 
     Slob resolveOwner(BlobDescriptor bd) {
         Slob slob = app.getSlob(bd.slobId);
-//        if (slob == null || !slob.file.exists()) {
         if (slob == null) {
             slob = app.findSlob(bd.slobUri);
         }
@@ -187,7 +186,6 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
                 Log.w(TAG,
                       String.format("Failed to resolve descriptor %s (%s) in %s (%s)",
                               bd.blobId, bd.key, slob.getId(), slob.fileURI), ex);
-                blob = null;
             }
         }
         if (blob != null) {
