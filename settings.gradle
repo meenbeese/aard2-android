@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-includeFlat 'slobj'
-includeFlat 'slobber'
+include ":slobj"
+include ":slobber"

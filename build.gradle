@@ -74,6 +74,6 @@ dependencies {
     api 'com.fasterxml.jackson.core:jackson-core:2.16.1'
     api 'com.fasterxml.jackson.core:jackson-annotations:2.16.1'
     api 'com.github.kazy1991:FontDrawable:0.9.5'
-    api project(':slobj')
-    api project(':slobber')
+    implementation project(':slobj')
+    implementation project(':slobber')
 }
