@@ -1,6 +1,6 @@
 [submodule "slobj"]
 	path = slobj
-	url = https://github.com/itkach/slobj.git
+	url = https://github.com/meenbeese/slobj.git
 [submodule "slobber"]
 	path = slobber
-	url = https://github.com/itkach/slobber.git
+	url = https://github.com/meenbeese/slobber.git
