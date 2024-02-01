@@ -193,67 +193,67 @@ public class MainActivity extends FragmentActivity implements
     public static final class BookmarksFragment extends
             BlobDescriptorListFragment {
         @Override
-        String getItemClickAction() {
+        public String getItemClickAction() {
             return "showBookmarks";
         }
 
         @Override
-        BlobDescriptorList getDescriptorList() {
+        public BlobDescriptorList getDescriptorList() {
             Application app = (Application) getActivity().getApplication();
             return app.bookmarks;
         }
 
         @Override
-        char getEmptyIcon() {
+        public char getEmptyIcon() {
             return IconMaker.IC_BOOKMARK;
         }
 
         @Override
-        String getEmptyText() {
+        public String getEmptyText() {
             return getString(R.string.main_empty_bookmarks);
         }
 
         @Override
-        int getDeleteConfirmationItemCountResId() {
+        public int getDeleteConfirmationItemCountResId() {
             return R.plurals.confirm_delete_bookmark_count;
         }
 
         @Override
-        String getPreferencesNS() {
+        public String getPreferencesNS() {
             return "bookmarks";
         }
     }
 
     public static class HistoryFragment extends BlobDescriptorListFragment {
         @Override
-        String getItemClickAction() {
+        public String getItemClickAction() {
             return "showHistory";
         }
 
         @Override
-        BlobDescriptorList getDescriptorList() {
+        public BlobDescriptorList getDescriptorList() {
             Application app = (Application) getActivity()
                     .getApplication();
             return app.history;
         }
 
         @Override
-        char getEmptyIcon() {
+        public char getEmptyIcon() {
             return IconMaker.IC_HISTORY;
         }
 
         @Override
-        String getEmptyText() {
+        public String getEmptyText() {
             return getString(R.string.main_empty_history);
         }
 
         @Override
-        int getDeleteConfirmationItemCountResId() {
+        public int getDeleteConfirmationItemCountResId() {
             return R.plurals.confirm_delete_history_count;
         }
 
         @Override
-        String getPreferencesNS() {
+        public String getPreferencesNS() {
             return "history";
         }
 
