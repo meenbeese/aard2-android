@@ -43,7 +43,7 @@ object IconMaker {
     }
 
     private fun makeWithColorRes(context: Context, c: Char, sizeDp: Int, colorRes: Int): FontDrawable {
-        return make(context, c, sizeDp, context.resources.getColor(colorRes))
+        return make(context, c, sizeDp, context.resources.getColor(colorRes, null))
     }
 
     fun tab(context: Context, c: Char): FontDrawable {

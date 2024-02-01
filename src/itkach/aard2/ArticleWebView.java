@@ -277,7 +277,7 @@ public class ArticleWebView extends SearchableWebView {
                 if (isExternal(uri)) {
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("text/plain");
-                    share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                    share.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
                     share.putExtra(Intent.EXTRA_TEXT, url);
                     getContext().startActivity(Intent.createChooser(share, "Share Link"));
                     return true;
