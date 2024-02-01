@@ -6,4 +6,4 @@
     android:iconifiedByDefault="true"
     android:queryHint="Lookup"
     android:imeOptions="flagNoExtractUi"
-    android:showAsAction="always" />
+    android:showAsAction="always"/>

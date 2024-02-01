@@ -142,7 +142,7 @@ public class ArticleFragment extends Fragment {
         }
 
         View layout = inflater.inflate(R.layout.article_view, container, false);
-        final ProgressBar progressBar = layout.findViewById(R.id.webViewPogress);
+        final ProgressBar progressBar = layout.findViewById(R.id.webViewProgress);
         view = layout.findViewById(R.id.webView);
         view.restoreState(savedInstanceState);
         view.loadUrl(url);

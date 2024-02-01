@@ -5,49 +5,45 @@
         android:paddingLeft="8dip"
         android:paddingRight="8dip"
         android:paddingTop="3dip"
-        android:background="@android:drawable/list_selector_background"
-    >
+        android:background="@android:drawable/list_selector_background">
     
     <LinearLayout
         android:id="@+id/blob_descriptor_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/blob_descriptor_key"
             style="@android:style/TextAppearance.Holo.SearchResult.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="22dp"
+            android:layout_marginEnd="22dp"
             android:text="Босния и Герцеговина на зимних Олимпийских играх 1998"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-        >
+            android:orientation="horizontal">
 
         <TextView
                 android:id="@+id/blob_descriptor_source"
                 style="@android:style/TextAppearance.Holo.SearchResult.Subtitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_weight="1"
-                android:text="WordNet" />
+                android:text="WordNet"/>
 
             <TextView
                 android:id="@+id/blob_descriptor_timestamp"
                 style="@android:style/TextAppearance.Holo.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:paddingLeft="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:text="1 day ago"
-                android:textStyle="italic" />
+                android:textStyle="italic"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -55,13 +51,12 @@
         android:id="@+id/blob_descriptor_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="-5dp"
+        android:layout_marginEnd="-5dp"
         android:visibility="gone"
         android:clickable="false"
         android:focusable="false"
         android:checked="false"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
 
 </itkach.aard2.CheckableRelativeLayout>

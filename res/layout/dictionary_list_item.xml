@@ -12,17 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="6dp"
-        >
+        android:layout_marginBottom="6dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dictionary_btn_toggle_fav"
             android:layout_gravity="top"
             android:baselineAlignBottom="true"
-            android:paddingRight="6dp"
-            android:layout_marginTop="3dp"
-            android:layout_alignParentLeft="true"/>
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:layout_marginTop="3dp" />
         <TextView
             android:id="@+id/dictionary_label"
             style="@android:style/TextAppearance.Holo.SearchResult.Title"
@@ -30,7 +29,7 @@
             android:text="WordNet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|top"
+            android:layout_gravity="start|top"
             android:layout_weight="1"/>
         <Switch
             android:layout_width="wrap_content"
@@ -38,8 +37,6 @@
             android:id="@+id/dictionary_active"
             android:checked="true"
             android:enabled="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_gravity="top"
             android:layout_weight="0"/>
     </LinearLayout>
@@ -49,17 +46,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="4dp"
-        >
+        android:layout_marginTop="4dp">
 
         <ImageView
             android:id="@+id/dictionary_error_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAlignBottom="true"
-            android:layout_marginRight="4dp"
-            android:layout_marginEnd="4dp"
-            />
+            android:layout_marginEnd="4dp"/>
 
         <TextView
             android:id="@+id/dictionary_error"
@@ -78,8 +72,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="6dp"
-        android:layout_marginLeft="16dp"
-        >
+        android:layout_marginStart="16dp">
 
         <TextView
             android:id="@+id/dictionary_blob_count"
@@ -87,35 +80,28 @@
             android:text="100,000 items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="6dp"
-            />
+            android:layout_marginBottom="6dp"/>
 
         <LinearLayout
             android:id="@+id/dictionary_copyright_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            >
+            android:layout_marginBottom="2dp">
 
             <ImageView
                 android:id="@+id/dictionary_copyright_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:baselineAlignBottom="true"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
-                />
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 android:id="@+id/dictionary_copyright"
                 style="@android:style/TextAppearance.Holo.SearchResult.Subtitle"
                 android:text="2014 Wikipedia editors and contributors"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                />
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -125,16 +111,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            >
+            android:layout_marginBottom="2dp">
+
             <ImageView
                 android:id="@+id/dictionary_license_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:baselineAlignBottom="true"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
-                />
+                android:layout_marginEnd="4dp"/>
             <TextView
                 android:id="@+id/dictionary_license"
                 style="@android:style/TextAppearance.Holo.SearchResult.Subtitle"
@@ -142,8 +126,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:focusable="false"
-                />
+                android:focusable="true"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -151,26 +135,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            >
+            android:layout_marginBottom="2dp">
 
             <ImageView
                 android:id="@+id/dictionary_source_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:baselineAlignBottom="true"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
-                />
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 android:id="@+id/dictionary_source"
                 style="@android:style/TextAppearance.Holo.SearchResult.Subtitle"
                 android:text="http://en.wikipedia.org"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                />
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -179,24 +158,20 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            >
+            android:layout_marginBottom="2dp">
             <ImageView
                 android:id="@+id/dictionary_path_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:baselineAlignBottom="true"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
-                />
+                android:layout_marginEnd="4dp"/>
             <TextView
                 android:id="@+id/dictionary_path"
                 style="@android:style/TextAppearance.Holo.SearchResult.Subtitle"
                 android:text="/mnt/sdcard/wordnet.slob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="italic"
-                />
+                android:textStyle="italic"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -206,48 +181,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="4dp"
-        >
+        android:layout_marginTop="4dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_weight="1"
-            android:id="@+id/dictionary_detail_toggle"
-            >
+            android:id="@+id/dictionary_detail_toggle">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dictionary_btn_toggle_detail"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="4dp"
-                android:paddingLeft="16dp"
-                android:layout_alignParentLeft="true"/>
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/dictionary_btn_toggle_detail_space"
-                />
+                android:paddingLeft="16dp" />
         </LinearLayout>
-
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dictionary_btn_forget"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:paddingRight="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="4dp"
-            android:paddingLeft="16dp"
-            android:layout_alignParentRight="true"/>
+            android:paddingLeft="16dp" />
 
     </LinearLayout>
-
 
 </LinearLayout>
