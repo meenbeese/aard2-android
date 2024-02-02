@@ -30,17 +30,14 @@ import java.util.Map;
 public class SettingsListAdapter extends BaseAdapter implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     final static int CSS_SELECT_REQUEST = 13;
-
     private final static String TAG = SettingsListAdapter.class.getSimpleName();
-    private final Activity      context;
-    private final Application   app;
-
-    private List<String>            userStyleNames;
-    private Map<String, ?>          userStyleData;
-    private SharedPreferences       userStylePrefs;
-    private View.OnClickListener    onDeleteUserStyle;
-    private Fragment                fragment;
-
+    private final Activity context;
+    private final Application app;
+    private List<String> userStyleNames;
+    private Map<String, ?> userStyleData;
+    private final SharedPreferences userStylePrefs;
+    private final View.OnClickListener onDeleteUserStyle;
+    private final Fragment fragment;
 
     final static int POS_UI_THEME = 0;
     final static int POS_REMOTE_CONTENT = 1;

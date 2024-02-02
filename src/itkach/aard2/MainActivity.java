@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import itkach.slob.Slob;
@@ -166,7 +167,7 @@ public class MainActivity extends FragmentActivity implements
         // Hiding it appears to reduce that.
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         try {
-            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            inputMethodManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
         }
         catch (Exception e) {
             Log.w(TAG, "Hiding soft input failed", e);
@@ -179,8 +180,7 @@ public class MainActivity extends FragmentActivity implements
         int currentItem = viewPager.getCurrentItem();
         Fragment frag = appSectionsPagerAdapter.getItem(currentItem);
         Log.d(TAG, "current tab: " + currentItem);
-        if (frag instanceof BlobDescriptorListFragment) {
-            BlobDescriptorListFragment bdFrag = (BlobDescriptorListFragment)frag;
+        if (frag instanceof BlobDescriptorListFragment bdFrag) {
             if (bdFrag.isFilterExpanded()) {
                 Log.d(TAG, "Filter is expanded");
                 bdFrag.collapseFilter();
