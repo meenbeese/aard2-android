@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -90,19 +89,6 @@ public class Application extends android.app.Application {
 
         Log.d(TAG, String.format("Started web server on port %d in %d ms",
                 port, (System.currentTimeMillis() - t0)));
-        try {
-            InputStream is;
-            is = Objects.requireNonNull(getClass().getClassLoader()).getResourceAsStream("styleswitcher.js");
-            jsStyleSwitcher = readTextFile(is, 0);
-            is = getAssets().open("userstyle.js");
-            jsUserStyle = readTextFile(is, 0);
-            is = getAssets().open("clearuserstyle.js");
-            jsClearUserStyle = readTextFile(is, 0);
-            is = getAssets().open("setcannedstyle.js");
-            jsSetCannedStyle = readTextFile(is, 0);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         String initialQuery = prefs().getString("query", "");
 

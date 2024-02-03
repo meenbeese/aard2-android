@@ -1,6 +1,5 @@
 package itkach.aard2;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -85,7 +84,6 @@ public class ArticleWebView extends SearchableWebView {
         this(context, null);
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     public ArticleWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
