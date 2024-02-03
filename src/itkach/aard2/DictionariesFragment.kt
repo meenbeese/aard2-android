@@ -5,7 +5,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -18,14 +17,10 @@ import android.widget.LinearLayout
 import android.widget.Toast
 
 class DictionariesFragment : BaseListFragment() {
-    private var listAdapter: DictionaryListAdapter? = null
-    override fun getEmptyIcon(): Char {
-        return IconMaker.IC_DICTIONARY
-    }
+    override val emptyIcon: Char = '\u0000'
+    override val emptyText: CharSequence? = null
 
-    override fun getEmptyText(): CharSequence {
-        return Html.fromHtml(getString(R.string.main_empty_dictionaries))
-    }
+    private var listAdapter: DictionaryListAdapter? = null
 
     override fun supportsSelection(): Boolean {
         return false

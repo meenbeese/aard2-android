@@ -42,10 +42,6 @@ internal abstract class BlobDescriptorListFragment : BaseListFragment() {
         listAdapter!!.isSelectionMode = selectionMode
     }
 
-    override fun getSelectionMenuId(): Int {
-        return R.menu.blob_descriptor_selection
-    }
-
     abstract val deleteConfirmationItemCountResId: Int
     abstract val preferencesNS: String?
     private fun prefs(): SharedPreferences {

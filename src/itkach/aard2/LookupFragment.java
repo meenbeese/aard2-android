@@ -25,12 +25,12 @@ public class LookupFragment extends BaseListFragment implements LookupListener {
     private final static String TAG = LookupFragment.class.getSimpleName();
 
     @Override
-    char getEmptyIcon() {
+    public char getEmptyIcon() {
         return IconMaker.IC_SEARCH;
     }
 
     @Override
-    CharSequence getEmptyText() {
+    public CharSequence getEmptyText() {
         return "";
     }
 
