@@ -25,12 +25,10 @@ import itkach.slob.Slob;
 final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
 
     private final String TAG = getClass().getSimpleName();
-
     enum SortOrder {
         TIME, NAME
     }
     private final Application app;
-
     private final DescriptorStore<BlobDescriptor> store;
     private final List<BlobDescriptor> list;
     private final List<BlobDescriptor> filteredList;
@@ -61,21 +59,17 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
         this.filteredList = new ArrayList<>();
         this.dataSetObservable = new DataSetObservable();
         this.filter = "";
+
         keyComparator = Slob.Strength.QUATERNARY.comparator;
-
         nameComparatorAsc = (b1, b2) -> keyComparator.compare(b1.key, b2.key);
-
         nameComparatorDesc = Collections.reverseOrder(nameComparatorAsc);
-
         timeComparatorAsc = (b1, b2) -> Utility.INSTANCE.compare(b1.createdAt, b2.createdAt);
-
         timeComparatorDesc = Collections.reverseOrder(timeComparatorAsc);
-
         lastAccessComparator = (b1, b2) -> Utility.INSTANCE.compare(b2.lastAccess, b1.lastAccess);
 
         order = SortOrder.TIME;
         ascending = false;
-        setSort(order, ascending);
+        setSort(order, false);
 
         try {
             filterCollator = (RuleBasedCollator) Collator.getInstance(Locale.ROOT).clone();
@@ -89,10 +83,6 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
 
     public void registerDataSetObserver(DataSetObserver observer) {
         this.dataSetObservable.registerObserver(observer);
-    }
-
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-        this.dataSetObservable.unregisterObserver(observer);
     }
 
     /**
@@ -120,15 +110,6 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
     private void sortOrderChanged() {
         Utility.INSTANCE.sort(this.filteredList, comparator);
         this.dataSetObservable.notifyChanged();
-    }
-
-    /**
-     * Notifies the attached observers that the underlying data is no longer
-     * valid or available. Once invoked this adapter is no longer valid and
-     * should not report further data set changes.
-     */
-    public void notifyDataSetInvalidated() {
-        this.dataSetObservable.notifyInvalidated();
     }
 
     void load() {
@@ -183,8 +164,7 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
                 }
             }
             catch (Exception ex) {
-                Log.w(TAG,
-                      String.format("Failed to resolve descriptor %s (%s) in %s (%s)",
+                Log.w(TAG, String.format("Failed to resolve descriptor %s (%s) in %s (%s)",
                               bd.blobId, bd.key, slob.getId(), slob.fileURI), ex);
             }
         }
@@ -223,25 +203,14 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
         return bd;
     }
 
-    public BlobDescriptor remove(String contentUrl) {
+    public void remove(String contentUrl) {
         int index = this.list.indexOf(createDescriptor(contentUrl));
         if (index > -1) {
-            return removeByIndex(index);
+            removeByIndex(index);
         }
-        return null;
     }
 
-    public BlobDescriptor remove(int index) {
-        //FIXME find exact item by uuid or using sorted<->unsorted mapping
-        BlobDescriptor bd = this.filteredList.get(index);
-        int realIndex = this.list.indexOf(bd);
-        if (realIndex > -1) {
-            return removeByIndex(realIndex);
-        }
-        return null;
-    }
-
-    private BlobDescriptor removeByIndex(int index) {
+    private void removeByIndex(int index) {
         BlobDescriptor bd = this.list.remove(index);
         if (bd != null) {
             boolean removed = store.delete(bd.id);
@@ -250,7 +219,6 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
                 notifyDataSetChanged();
             }
         }
-        return bd;
     }
 
     public boolean contains(String contentUrl) {
@@ -260,6 +228,8 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
                 Log.d(TAG, "Found exact match, bookmarked");
                 return true;
             }
+            assert bd.key != null;
+            assert bd.slobUri != null;
             if (bd.key.equals(toFind.key) && bd.slobUri.equals(toFind.slobUri)) {
                 Log.d(TAG, "Found approximate match, bookmarked");
                 return true;
@@ -319,5 +289,4 @@ final class BlobDescriptorList extends AbstractList<BlobDescriptor> {
             sortOrderChanged();
         }
     }
-
 }
