@@ -38,9 +38,9 @@ object Utility {
             return null
         }
         var normalizedHost = host
-        val parts = host?.split("\\.".toRegex())?.toTypedArray()
+        val parts = host.split("\\.".toRegex()).toTypedArray()
         // If mobile host like en.m.wikipedia.opr get rid of m
-        if (parts?.size == 4) {
+        if (parts.size == 4) {
             normalizedHost = "${parts[0]}.${parts[2]}.${parts[3]}"
         }
         return "http://$normalizedHost"

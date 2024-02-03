@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import itkach.slob.Slob;
 
@@ -31,12 +29,6 @@ public class MainActivity extends FragmentActivity implements
     private static final String TAG = MainActivity.class.getSimpleName();
     private AppSectionsPagerAdapter appSectionsPagerAdapter;
     private ViewPager viewPager;
-
-    private final Pattern[] NO_PASTE_PATTERNS = new Pattern[]{
-            Patterns.WEB_URL,
-            Patterns.EMAIL_ADDRESS,
-            Patterns.PHONE
-    };
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +40,7 @@ public class MainActivity extends FragmentActivity implements
                 getSupportFragmentManager());
 
         final ActionBar actionBar = getActionBar();
+        assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -138,26 +131,22 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home -> {
-                Application app = (Application) getApplication();
-                Slob.Blob blob = app.random();
-                if (blob == null) {
-                    Toast.makeText(this,
-                            R.string.article_collection_nothing_found,
-                            Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                Intent intent = new Intent(this,
-                        ArticleCollectionActivity.class);
-                intent.setData(Uri.parse(app.getUrl(blob)));
-                startActivity(intent);
+        if (item.getItemId() == android.R.id.home) {
+            Application app = (Application) getApplication();
+            Slob.Blob blob = app.random();
+            if (blob == null) {
+                Toast.makeText(this,
+                        R.string.article_collection_nothing_found,
+                        Toast.LENGTH_SHORT).show();
                 return true;
             }
-            default -> {
-                return super.onOptionsItemSelected(item);
-            }
+            Intent intent = new Intent(this,
+                    ArticleCollectionActivity.class);
+            intent.setData(Uri.parse(app.getUrl(blob)));
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

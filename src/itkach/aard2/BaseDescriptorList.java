@@ -30,10 +30,6 @@ abstract class BaseDescriptorList<T extends BaseDescriptor> extends AbstractList
         this.dataSetObservable.registerObserver(observer);
     }
 
-    void unregisterDataSetObserver(DataSetObserver observer) {
-        this.dataSetObservable.unregisterObserver(observer);
-    }
-
     void beginUpdate() {
         Log.d(getClass().getName(), "beginUpdate");
         this.updating++;

@@ -1,5 +1,6 @@
 package itkach.aard2;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +21,6 @@ import android.webkit.WebViewClient;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,29 +81,11 @@ public class ArticleWebView extends SearchableWebView {
 
     boolean forceLoadRemoteContent;
 
-    @JavascriptInterface
-    public void setStyleTitles(String[] titles) {
-        Log.d(TAG, String.format("Got %d style titles", titles.length));
-        if (titles.length == 0) {
-            return;
-        }
-        SortedSet newStyleTitlesSet = new TreeSet<>(Arrays.asList(titles));
-        if (!this.styleTitles.equals(newStyleTitlesSet)) {
-            this.styleTitles = newStyleTitlesSet;
-            saveAvailableStylesPref(this.styleTitles);
-        }
-
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            for (String title : titles) {
-                Log.d(TAG, title);
-            }
-        }
-    }
-
     public ArticleWebView(Context context) {
         this(context, null);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     public ArticleWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -390,16 +372,6 @@ public class ArticleWebView extends SearchableWebView {
         return currentSlobId;
     }
 
-    private void saveAvailableStylesPref(Set<String> styleTitles) {
-        SharedPreferences prefs = prefs();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putStringSet(PREF_STYLE_AVAILABLE + currentSlobUri, styleTitles);
-        boolean success = editor.commit();
-        if (!success) {
-            Log.w(TAG, "Failed to save article view available styles pref");
-        }
-    }
-
     private void loadAvailableStylesPref() {
         if (currentSlobUri == null) {
             Log.w(TAG, "Can't load article view available styles pref - slob uri is null");
@@ -407,7 +379,7 @@ public class ArticleWebView extends SearchableWebView {
         }
         SharedPreferences prefs = prefs();
         Log.d(TAG, "Available styles before pref load: " + styleTitles.size());
-        styleTitles = new TreeSet(
+        styleTitles = new TreeSet<>(
                 prefs.getStringSet(PREF_STYLE_AVAILABLE + currentSlobUri,
                         Collections.EMPTY_SET));
         Log.d(TAG, "Loaded available styles: " + styleTitles.size());
@@ -445,17 +417,6 @@ public class ArticleWebView extends SearchableWebView {
         String result = isAutoStyle(styleTitle) ? getAutoStyle() : styleTitle;
         Log.d(TAG, "getPreferredStyle() will return " + result);
         return result;
-    }
-
-    @JavascriptInterface
-    public String exportStyleSwitcherAs() {
-        return "$styleSwitcher";
-    }
-
-    @JavascriptInterface
-    public void onStyleSet(String title) {
-        Log.d(TAG, "Style set! " + title);
-        applyStylePref.cancel();
     }
 
     void applyStylePref() {

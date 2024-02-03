@@ -28,19 +28,13 @@ class DescriptorStore<T : BaseDescriptor>(private val mapper: ObjectMapper, priv
         return result
     }
 
-    fun save(lst: List<T>) {
-        for (item in lst) {
-            save(item)
-        }
-    }
-
     fun save(item: T) {
         if (item.id == null) {
             Log.d(javaClass.name, "Can't save item without id")
             return
         }
         try {
-            mapper.writeValue(File(dir, item.id), item)
+            mapper.writeValue(item.id?.let { File(dir, it) }, item)
         } catch (e: Exception) {
             throw RuntimeException(e)
         }

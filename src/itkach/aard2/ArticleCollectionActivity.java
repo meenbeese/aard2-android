@@ -1,5 +1,6 @@
 package itkach.aard2;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
@@ -36,9 +37,7 @@ import java.util.Objects;
 import itkach.slob.Slob;
 import itkach.slob.Slob.Blob;
 
-public class ArticleCollectionActivity extends FragmentActivity
-        implements  View.OnSystemUiVisibilityChangeListener,
-                    SharedPreferences.OnSharedPreferenceChangeListener {
+public class ArticleCollectionActivity extends FragmentActivity implements  View.OnSystemUiVisibilityChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = ArticleCollectionActivity.class.getSimpleName();
 
@@ -82,6 +81,7 @@ public class ArticleCollectionActivity extends FragmentActivity
         final Intent intent = getIntent();
         final int position = intent.getIntExtra("position", 0);
 
+        @SuppressLint("StaticFieldLeak")
         AsyncTask<Void, Void, ArticleCollectionPagerAdapter> createAdapterTask = new AsyncTask<>() {
 
             Exception exception;
@@ -149,7 +149,7 @@ public class ArticleCollectionActivity extends FragmentActivity
                 findViewById(R.id.pager_title_strip).setVisibility(
                         articleCollectionPagerAdapter.getCount() == 1 ? ViewGroup.GONE : ViewGroup.VISIBLE);
 
-                viewPager = (ViewPager) findViewById(R.id.pager);
+                viewPager = findViewById(R.id.pager);
                 viewPager.setAdapter(articleCollectionPagerAdapter);
                 viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 
@@ -173,7 +173,7 @@ public class ArticleCollectionActivity extends FragmentActivity
                 });
                 viewPager.setCurrentItem(position);
 
-                PagerTitleStrip titleStrip = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
+                PagerTitleStrip titleStrip = findViewById(R.id.pager_title_strip);
                 titleStrip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
                 updateTitle(position);
                 articleCollectionPagerAdapter.registerDataSetObserver(new DataSetObserver() {

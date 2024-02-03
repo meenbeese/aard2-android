@@ -18,13 +18,12 @@ public class BlobDescriptorListAdapter extends BaseAdapter {
 
     final BlobDescriptorList list;
     DateFormat dateFormat;
-    private final DataSetObserver observer;
     private boolean selectionMode;
 
     public BlobDescriptorListAdapter(BlobDescriptorList list) {
         this.list = list;
         this.dateFormat = DateFormat.getDateTimeInstance();
-        this.observer = new DataSetObserver() {
+        DataSetObserver observer = new DataSetObserver() {
             @Override
             public void onChanged() {
                 notifyDataSetChanged();

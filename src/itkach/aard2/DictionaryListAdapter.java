@@ -76,7 +76,7 @@ public class DictionaryListAdapter extends BaseAdapter {
             Log.w(TAG, "Couldn't parse get document file name from uri" + desc.path, ex);
         }
         long blobCount = desc.blobCount;
-        boolean available = this.data.resolve(desc) != null;
+        this.data.resolve(desc);
         View view;
         if (convertView != null) {
             view = convertView;
@@ -146,18 +146,18 @@ public class DictionaryListAdapter extends BaseAdapter {
         switchView.setTag(position);
 
         TextView titleView = view.findViewById(R.id.dictionary_label);
-        titleView.setEnabled(available);
+        titleView.setEnabled(true);
         titleView.setText(label);
         titleView.setTag(position);
 
         View detailView = view.findViewById(R.id.dictionary_details);
         detailView.setVisibility(desc.expandDetail ? View.VISIBLE : View.GONE);
 
-        setupBlobCountView(desc, blobCount, available, view, r);
-        setupCopyrightView(desc, available, view);
-        setupLicenseView(desc, available, view);
-        setupSourceView(desc, available, view);
-        setupPathView(fileName, available, view);
+        setupBlobCountView(desc, blobCount, view, r);
+        setupCopyrightView(desc, view);
+        setupLicenseView(desc, view);
+        setupSourceView(desc, view);
+        setupPathView(fileName, view);
         setupErrorView(desc, view);
 
         ImageView btnToggleDetail = view.findViewById(R.id.dictionary_btn_toggle_detail);
@@ -178,7 +178,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         return view;
     }
 
-    private void setupPathView(String path, boolean available, View view) {
+    private void setupPathView(String path, View view) {
         View pathRow = view.findViewById(R.id.dictionary_path_row);
 
         ImageView pathIcon = view.findViewById(R.id.dictionary_path_icon);
@@ -187,7 +187,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         TextView pathView = view.findViewById(R.id.dictionary_path);
         pathView.setText(path);
 
-        pathRow.setEnabled(available);
+        pathRow.setEnabled(true);
     }
 
     private void setupErrorView(SlobDescriptor desc, View view) {
@@ -202,16 +202,16 @@ public class DictionaryListAdapter extends BaseAdapter {
         errorRow.setVisibility(desc.error == null ? View.GONE : View.VISIBLE);
     }
 
-    private void setupBlobCountView(SlobDescriptor desc, long blobCount, boolean available, View view, Resources r) {
+    private void setupBlobCountView(SlobDescriptor desc, long blobCount, View view, Resources r) {
         TextView blobCountView = view.findViewById(R.id.dictionary_blob_count);
-        blobCountView.setEnabled(available);
+        blobCountView.setEnabled(true);
         blobCountView.setVisibility(desc.error == null ? View.VISIBLE : View.GONE);
 
         blobCountView.setText(format(Locale.getDefault(),
                 r.getQuantityString(R.plurals.dict_item_count, (int)blobCount), blobCount));
     }
 
-    private void setupCopyrightView(SlobDescriptor desc, boolean available, View view) {
+    private void setupCopyrightView(SlobDescriptor desc, View view) {
         View copyrightRow= view.findViewById(R.id.dictionary_copyright_row);
 
         ImageView copyrightIcon = view.findViewById(R.id.dictionary_copyright_icon);
@@ -222,10 +222,10 @@ public class DictionaryListAdapter extends BaseAdapter {
         copyrightView.setText(copyright);
 
         copyrightRow.setVisibility(Utility.INSTANCE.isBlank(copyright) ? View.GONE : View.VISIBLE);
-        copyrightRow.setEnabled(available);
+        copyrightRow.setEnabled(true);
     }
 
-    private void setupSourceView(SlobDescriptor desc, boolean available, View view) {
+    private void setupSourceView(SlobDescriptor desc, View view) {
         View sourceRow = view.findViewById(R.id.dictionary_license_row);
 
         ImageView sourceIcon = view.findViewById(R.id.dictionary_source_icon);
@@ -243,10 +243,10 @@ public class DictionaryListAdapter extends BaseAdapter {
         sourceIcon.setVisibility(visibility);
         sourceView.setVisibility(visibility);
         sourceRow.setVisibility(visibility);
-        sourceRow.setEnabled(available);
+        sourceRow.setEnabled(true);
     }
 
-    private void setupLicenseView(SlobDescriptor desc, boolean available, View view) {
+    private void setupLicenseView(SlobDescriptor desc, View view) {
         View licenseRow= view.findViewById(R.id.dictionary_license_row);
 
         ImageView licenseIcon = view.findViewById(R.id.dictionary_license_icon);
@@ -272,7 +272,7 @@ public class DictionaryListAdapter extends BaseAdapter {
         licenseIcon.setVisibility(visibility);
         licenseView.setVisibility(visibility);
         licenseRow.setVisibility(visibility);
-        licenseRow.setEnabled(available);
+        licenseRow.setEnabled(true);
     }
 
     private void forget(final int position) {

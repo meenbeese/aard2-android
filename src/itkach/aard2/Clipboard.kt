@@ -1,7 +1,6 @@
 package itkach.aard2
 
 import android.content.Context.CLIPBOARD_SERVICE
-
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
